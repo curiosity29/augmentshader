@@ -7,8 +7,39 @@ extends Control
 
 
 
-
 signal current_parameter_changed
+
+#region misc
+@export var snap_step_size: float = 0.001
+
+
+#endregion
+
+#region setup
+func _ready() -> void:
+	gamma_slider.min_value = gamma_min_spin_box.value
+	gamma_slider.max_value = gamma_max_spin_box.value
+	
+	contrast_slider.min_value = contrast_min_spin_box.value
+	contrast_slider.max_value = contrast_max_spin_box.value
+	
+	blur_radius_slider.min_value = blur_radius_min_spin_box.value
+	blur_radius_slider.max_value = blur_radius_max_spin_box.value
+	
+	hue_slider.min_value = hue_min_spin_box.value
+	hue_slider.max_value = hue_max_spin_box.value
+	hue_slider.value = 0
+	
+	saturation_slider.min_value = saturation_min_spin_box.value
+	saturation_slider.max_value = saturation_max_spin_box.value
+	saturation_slider.value = 0
+	
+	value_slider.min_value = value_min_spin_box.value
+	value_slider.max_value = value_max_spin_box.value
+	value_slider.value = 0
+
+#endregion
+
 
 #region gamma
 
@@ -16,7 +47,8 @@ signal current_parameter_changed
 #var gamma_max: float = 0.0
 var gamma_current: float = 0.0:
 	set(value):
-		gamma_current = value
+		gamma_current = snappedf(value, snap_step_size)
+		gamma_current_label.text = str(gamma_current)
 		current_parameter_changed.emit()
 		
 #var gamma_slide_value: float = 0.0
@@ -28,13 +60,13 @@ var gamma_current: float = 0.0:
 
 
 
+func _on_gamma_slider_value_changed(value: float) -> void:
+	gamma_current = value
 func _on_gamma_min_spin_box_value_changed(value: float) -> void:
 	gamma_slider.min_value = value
+	gamma_slider.max_value = max(value, gamma_slider.max_value)
 func _on_gamma_max_spin_box_value_changed(value: float) -> void:
 	gamma_slider.max_value = value
-func _on_gamma_slider_value_changed(value: float) -> void:
-	gamma_current_label.text = str(value)
-	gamma_current = value
 #endregion
 
 #region contrast
@@ -43,7 +75,8 @@ func _on_gamma_slider_value_changed(value: float) -> void:
 #var contrast_max: float = 0.0
 var contrast_current: float = 0.0:
 	set(value):
-		contrast_current = value
+		contrast_current = snappedf(value, snap_step_size)
+		contrast_current_label.text = str(contrast_current)
 		current_parameter_changed.emit()
 #var contrast_slide_value: float = 0.0
 @onready var contrast_min_spin_box: SpinBox = %ContrastMinSpinBox
@@ -53,11 +86,11 @@ var contrast_current: float = 0.0:
 
 
 func _on_contrast_slider_value_changed(value: float) -> void:
-	contrast_current_label.text = str(value)
 	contrast_current = value
 
 func _on_contrast_min_spin_box_value_changed(value: float) -> void:
 	contrast_slider.min_value = value
+	contrast_slider.max_value = max(value, contrast_slider.max_value)
 
 func _on_contrast_max_spin_box_value_changed(value: float) -> void:
 	contrast_slider.max_value = value
@@ -71,6 +104,8 @@ func _on_contrast_max_spin_box_value_changed(value: float) -> void:
 var blur_radius_current: int = 0:
 	set(value):
 		blur_radius_current = value
+		blur_radius_current = snappedf(value, snap_step_size)
+		blur_radius_current_label.text = str(blur_radius_current)
 		current_parameter_changed.emit()
 	
 #var blur_radius_slide_value: int = 0
@@ -81,10 +116,10 @@ var blur_radius_current: int = 0:
 @onready var blur_radius_current_label: Label = %BlurRadiusCurrentLabel
 
 func _on_blur_radius_slider_value_changed(value: float) -> void:
-	blur_radius_current_label.text = str(value)
 	blur_radius_current = value
 func _on_blur_radius_min_spin_box_value_changed(value: float) -> void:
 	blur_radius_slider.min_value = value
+	blur_radius_slider.max_value = max(value, blur_radius_slider.max_value)
 func _on_blur_radius_max_spin_box_value_changed(value: float) -> void:
 	blur_radius_slider.max_value = value
 
@@ -96,7 +131,17 @@ func _on_blur_radius_max_spin_box_value_changed(value: float) -> void:
 #var hsv_offset_max: Vector3 = Vector3.ZERO
 var hsv_offset_current: Vector3 = Vector3.ZERO:
 	set(value):
-		hsv_offset_current = value
+		var x_round: float = snappedf(value.x, snap_step_size)
+		var y_round: float = snappedf(value.y, snap_step_size)
+		var z_round: float = snappedf(value.z, snap_step_size)
+		hsv_offset_current = Vector3(x_round, y_round, z_round) ## somehow it's impossible to round a vector3
+		#print(x_round)
+		
+		# These does not work properly: hsv_offset_current = Vector3(snappedf(value.x, snap_step_size), snappedf(value.y, snap_step_size), snappedf(value.z, snap_step_size)) value.snapped(Vector3(snap_step_size, snap_step_size, snap_step_size))# snapped(value, Vector3(snap_step_size, snap_step_size, snap_step_size))
+		#print("wtf: ", hsv_offset_current.x, x_round)
+		hue_current_label.text = str(x_round)
+		saturation_current_label.text = str(y_round)
+		value_current_label.text = str(z_round)
 		current_parameter_changed.emit()
 #var hsv_offset_slide_value: Vector3 = Vector3.ZERO
 
@@ -119,28 +164,28 @@ var hsv_offset_current: Vector3 = Vector3.ZERO:
 
 	
 func _on_hue_slider_value_changed(value: float) -> void:
-	hue_current_label.text = str(value)
 	hsv_offset_current.x = value
 func _on_hue_min_spin_box_value_changed(value: float) -> void:
 	hue_slider.min_value = value
+	hue_slider.max_value = max(value, hue_slider.max_value)
 func _on_hue_max_spin_box_value_changed(value: float) -> void:
 	hue_slider.max_value = value
 
 
 func _on_saturation_slider_value_changed(value: float) -> void:
-	saturation_current_label.text = str(value)
 	hsv_offset_current.y = value
 func _on_saturation_min_spin_box_value_changed(value: float) -> void:
 	saturation_slider.min_value = value
+	saturation_slider.max_value = max(value, saturation_slider.max_value)
 func _on_saturation_max_spin_box_value_changed(value: float) -> void:
 	saturation_slider.max_value = value
 
 
 func _on_value_slider_value_changed(value: float) -> void:
-	value_current_label.text = str(value)
 	hsv_offset_current.z = value
 func _on_value_min_spin_box_value_changed(value: float) -> void:
 	value_slider.min_value = value
+	value_slider.max_value = max(value, value_slider.max_value)
 func _on_value_max_spin_box_value_changed(value: float) -> void:
 	value_slider.max_value = value
 
@@ -149,9 +194,9 @@ func _on_value_max_spin_box_value_changed(value: float) -> void:
 
 var shader_parameters_range: Dictionary[String, Array]:
 	get: return {
-	"blur_radius": [blur_radius_min_spin_box.value, blur_radius_max_spin_box.value],
 	"gamma": [gamma_min_spin_box.value, gamma_max_spin_box.value],
 	"contrast": [contrast_min_spin_box.value, contrast_max_spin_box.value],
+	"blur_radius": [blur_radius_min_spin_box.value, blur_radius_max_spin_box.value],
 	"hsv_offset": [
 		Vector3(hue_min_spin_box.value, saturation_min_spin_box.value, value_min_spin_box.value), 
 		Vector3(hue_max_spin_box.value, saturation_max_spin_box.value, value_max_spin_box.value)],
@@ -166,8 +211,8 @@ var shader_parameters_range: Dictionary[String, Array]:
 #}
 var shader_parameters_current: Dictionary:
 	get: return {
-	"blur_radius": contrast_current,
 	"gamma": gamma_current,
 	"contrast": contrast_current,
+	"blur_radius": blur_radius_current,
 	"hsv_offset": hsv_offset_current,
 }

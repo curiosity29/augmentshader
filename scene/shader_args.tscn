@@ -76,17 +76,23 @@ vertical_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 10.0
-step = -1.0
+max_value = 4.0
+step = 0.0
+page = 0.1
+value = 1.0
 allow_greater = true
+select_all_on_focus = true
 
 [node name="GammaMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-max_value = 10.0
-step = -1.0
+max_value = 4.0
+step = 0.001
+page = 0.01
+value = 2.0
 allow_greater = true
+select_all_on_focus = true
 
 [node name="GammaSlider" type="HSlider" parent="VBoxContainer/Args1"]
 unique_name_in_owner = true
@@ -94,11 +100,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 step = 0.01
+page = 0.1
 
 [node name="GammaCurrentLabel" type="Label" parent="VBoxContainer/Args1"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+vertical_alignment = 1
+clip_text = true
 
 [node name="Args2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -114,10 +123,13 @@ vertical_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-min_value = -1.0
+min_value = 1.0
 max_value = 3.0
-step = -1.0
+step = 0.001
+page = 0.01
+value = 1.0
 allow_greater = true
+select_all_on_focus = true
 
 [node name="ContrastMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args2"]
 unique_name_in_owner = true
@@ -125,8 +137,11 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 min_value = -1.0
 max_value = 3.0
-step = -1.0
+step = 0.001
+page = 0.01
+value = 2.0
 allow_greater = true
+select_all_on_focus = true
 
 [node name="ContrastSlider" type="HSlider" parent="VBoxContainer/Args2"]
 unique_name_in_owner = true
@@ -134,11 +149,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 step = 0.01
+page = 0.1
 
 [node name="ContrastCurrentLabel" type="Label" parent="VBoxContainer/Args2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+vertical_alignment = 1
+clip_text = true
 
 [node name="Args3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -155,16 +173,21 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 max_value = 10.0
+page = 1.0
 rounded = true
 allow_greater = true
+select_all_on_focus = true
 
 [node name="BlurRadiusMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 max_value = 10.0
+page = 1.0
+value = 6.0
 rounded = true
 allow_greater = true
+select_all_on_focus = true
 
 [node name="BlurRadiusSlider" type="HSlider" parent="VBoxContainer/Args3"]
 unique_name_in_owner = true
@@ -172,11 +195,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 step = 0.01
+page = 0.1
 
 [node name="BlurRadiusCurrentLabel" type="Label" parent="VBoxContainer/Args3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+vertical_alignment = 1
+clip_text = true
 
 [node name="Args4" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -196,27 +222,36 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 min_value = -1.0
-max_value = 3.0
-step = -1.0
+max_value = 1.0
+step = 0.001
+page = 0.01
+value = -0.5
 allow_greater = true
+select_all_on_focus = true
 
 [node name="SaturationMinSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
-max_value = 3.0
-step = -1.0
+max_value = 1.0
+step = 0.001
+page = 0.01
+value = -0.5
 allow_greater = true
+select_all_on_focus = true
 
 [node name="ValueMinSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
-max_value = 3.0
-step = -1.0
+max_value = 1.0
+step = 0.001
+page = 0.01
+value = -0.5
 allow_greater = true
+select_all_on_focus = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Args4"]
 layout_mode = 2
@@ -226,27 +261,36 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 min_value = -1.0
-max_value = 3.0
-step = -1.0
+max_value = 1.0
+step = 0.001
+page = 0.01
+value = 0.5
 allow_greater = true
+select_all_on_focus = true
 
 [node name="SaturationMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
-max_value = 3.0
-step = -1.0
+max_value = 1.0
+step = 0.001
+page = 0.01
+value = 0.5
 allow_greater = true
+select_all_on_focus = true
 
 [node name="ValueMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
-max_value = 3.0
-step = -1.0
+max_value = 1.0
+step = 0.001
+page = 0.01
+value = 0.5
 allow_greater = true
+select_all_on_focus = true
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Args4"]
 layout_mode = 2
@@ -258,6 +302,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 step = 0.01
+page = 0.1
 
 [node name="SaturationSlider" type="HSlider" parent="VBoxContainer/Args4/VBoxContainer3"]
 unique_name_in_owner = true
@@ -265,6 +310,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 step = 0.01
+page = 0.1
 
 [node name="ValueSlider" type="HSlider" parent="VBoxContainer/Args4/VBoxContainer3"]
 unique_name_in_owner = true
@@ -272,6 +318,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 step = 0.01
+page = 0.1
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/Args4"]
 custom_minimum_size = Vector2(100, 0)
@@ -282,18 +329,24 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 7
+vertical_alignment = 1
+clip_text = true
 
 [node name="SaturationCurrentLabel" type="Label" parent="VBoxContainer/Args4/VBoxContainer4"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 7
+vertical_alignment = 1
+clip_text = true
 
 [node name="ValueCurrentLabel" type="Label" parent="VBoxContainer/Args4/VBoxContainer4"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 7
+vertical_alignment = 1
+clip_text = true
 
 [connection signal="value_changed" from="VBoxContainer/Args1/GammaMinSpinBox" to="." method="_on_gamma_min_spin_box_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Args1/GammaMaxSpinBox" to="." method="_on_gamma_max_spin_box_value_changed"]

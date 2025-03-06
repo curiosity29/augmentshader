@@ -3,7 +3,7 @@ uniform int blur_radius : hint_range(0, 10) = 0;  // Adjust the radius for blur 
 uniform float middle_mult = 5.0;
 uniform float gamma = 1.0;
 uniform vec3 hsv_offset = vec3(0.0, 0.0, 0.0);
-uniform float contrast_offset: hint_range(-1.0, 5.0, 0.1) = 0.0;
+uniform float contrast: hint_range(-1.0, 5.0, 0.1) = 1.0;
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
@@ -63,7 +63,7 @@ void fragment() {
 	// GAMMA
 	color.rgb = vec3(pow(color.r, gamma), pow(color.g, gamma),pow(color.b, gamma));
 	// contrast
-	color = (color - 0.5) * (1.0 + contrast_offset) + 0.5;
+	color = (color - 0.5) * (contrast) + 0.5;
 
 	vec3 hsv_color = rgb2hsv(color.rgb);
 	//hsv_color.rgb = fract(hsv_offset + hsv_color.rgb);
