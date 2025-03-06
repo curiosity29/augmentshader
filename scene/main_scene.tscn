@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://ejcqifogemby"]
+
+[ext_resource type="Script" uid="uid://b4irlffc58goe" path="res://scene/main_scene.gd" id="1_jsie2"]
+[ext_resource type="PackedScene" uid="uid://dyu67bdyfohp3" path="res://scene/paths_scroll_container.tscn" id="2_jsie2"]
+[ext_resource type="Material" uid="uid://dy64uyqy5b0q1" path="res://shader/material/augmentUI.tres" id="3_pi0uh"]
+[ext_resource type="Texture2D" uid="uid://ds2cs16nqp5h7" path="res://output.png" id="4_hrphr"]
+[ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="5_86xya"]
+[ext_resource type="PackedScene" uid="uid://7hfbjo4mjhpd" path="res://scene/shader_args.tscn" id="6_cj0ow"]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_jsie2")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a Directory"
+position = Vector2i(0, 36)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+show_hidden_files = true
+use_native_dialog = true
+
+[node name="InfoUI" type="Node2D" parent="."]
+
+[node name="PathArgs" type="Node2D" parent="."]
+
+[node name="PathsScrollContainer" parent="PathArgs" instance=ExtResource("2_jsie2")]
+offset_left = 1107.0
+offset_top = 185.0
+offset_right = 1732.0
+offset_bottom = 354.0
+
+[node name="ResultView" type="Node2D" parent="."]
+
+[node name="VisualViewportContainer" type="SubViewportContainer" parent="ResultView"]
+offset_left = 180.0
+offset_top = 266.0
+offset_right = 820.0
+offset_bottom = 906.0
+
+[node name="VisualSubViewport" type="SubViewport" parent="ResultView/VisualViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(640, 640)
+render_target_update_mode = 4
+
+[node name="VisualTextureRect" type="TextureRect" parent="ResultView/VisualViewportContainer/VisualSubViewport"]
+unique_name_in_owner = true
+material = ExtResource("3_pi0uh")
+offset_right = 640.0
+offset_bottom = 640.0
+texture = ExtResource("4_hrphr")
+expand_mode = 1
+
+[node name="CaptureViewportContainer" type="SubViewportContainer" parent="ResultView"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CaptureSubViewport" type="SubViewport" parent="ResultView/CaptureViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="CaptureSprite2D" type="Sprite2D" parent="ResultView/CaptureViewportContainer/CaptureSubViewport"]
+unique_name_in_owner = true
+material = ExtResource("5_86xya")
+
+[node name="ImagePickerButton" type="Button" parent="ResultView"]
+offset_left = 326.0
+offset_top = 116.0
+offset_right = 621.0
+offset_bottom = 172.0
+text = "Pick from file system"
+
+[node name="ShaderArgs" type="Node2D" parent="."]
+
+[node name="ShaderSetting" parent="ShaderArgs" instance=ExtResource("6_cj0ow")]
+unique_name_in_owner = true
+offset_left = 1430.0
+offset_top = 690.0
+offset_right = 1430.0
+offset_bottom = 690.0
+
+[connection signal="pressed" from="ResultView/ImagePickerButton" to="." method="_on_image_picker_button_pressed"]

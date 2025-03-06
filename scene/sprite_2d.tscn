@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsquhb6cdhwkl"]
+
+[ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="1_we0w8"]
+[ext_resource type="Texture2D" uid="uid://0q8pqrsemur" path="res://images/input.png" id="2_pig5c"]
+[ext_resource type="Script" uid="uid://cnove5ocdca4k" path="res://scene/testing.gd" id="3_pig5c"]
+
+[node name="Sprite2D" type="Sprite2D"]
+material = ExtResource("1_we0w8")
+texture = ExtResource("2_pig5c")
+script = ExtResource("3_pig5c")

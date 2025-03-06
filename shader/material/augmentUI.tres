@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dy64uyqy5b0q1"]
+
+[ext_resource type="Shader" uid="uid://jw0vlhrxo20i" path="res://shader/script/augment.gdshader" id="1_d6bya"]
+
+[resource]
+shader = ExtResource("1_d6bya")
+shader_parameter/blur_radius = 0
+shader_parameter/middle_mult = 10.0
+shader_parameter/gamma = 1.0
+shader_parameter/hsv_offset = Vector3(-0.4, 0.3, 0)
+shader_parameter/contrast_offset = 0.0

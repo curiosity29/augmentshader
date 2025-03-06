@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyu67bdyfohp3"]
+
+[ext_resource type="Script" path="res://scene/paths_scroll_container.gd" id="1_8i2mp"]
+[ext_resource type="PackedScene" uid="uid://bonfwmtk5mci0" path="res://scene/args_set.tscn" id="1_dyrvu"]
+
+[node name="PathsScrollContainer" type="ScrollContainer"]
+offset_right = 587.0
+offset_bottom = 166.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+script = ExtResource("1_8i2mp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ArgsSet" parent="VBoxContainer" instance=ExtResource("1_dyrvu")]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="ArgsSet2" parent="VBoxContainer" instance=ExtResource("1_dyrvu")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ArgsSet3" parent="VBoxContainer" instance=ExtResource("1_dyrvu")]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="ArgsSet4" parent="VBoxContainer" instance=ExtResource("1_dyrvu")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ArgsSet5" parent="VBoxContainer" instance=ExtResource("1_dyrvu")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ArgsSet6" parent="VBoxContainer" instance=ExtResource("1_dyrvu")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ArgsSet7" parent="VBoxContainer" instance=ExtResource("1_dyrvu")]
+layout_mode = 2
+size_flags_vertical = 3

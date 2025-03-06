@@ -1,0 +1,315 @@
+[gd_scene load_steps=2 format=3 uid="uid://7hfbjo4mjhpd"]
+
+[ext_resource type="Script" uid="uid://b0gtf8v6xomb0" path="res://scene/shader_args.gd" id="1_hpira"]
+
+[node name="ShaderSetting" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 217.0
+offset_top = 137.0
+offset_right = -292.0
+offset_bottom = -191.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hpira")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Args5" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Args5"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Parameters"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/Args5"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Min Value"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer/Args5"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Max Value"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="VBoxContainer/Args5"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Slide"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="VBoxContainer/Args5"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Current"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Args1" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Args1"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "gamma"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GammaMinSpinBox" type="SpinBox" parent="VBoxContainer/Args1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10.0
+step = -1.0
+allow_greater = true
+
+[node name="GammaMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10.0
+step = -1.0
+allow_greater = true
+
+[node name="GammaSlider" type="HSlider" parent="VBoxContainer/Args1"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.01
+
+[node name="GammaCurrentLabel" type="Label" parent="VBoxContainer/Args1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Args2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Args2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Contrast"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContrastMinSpinBox" type="SpinBox" parent="VBoxContainer/Args2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="ContrastMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="ContrastSlider" type="HSlider" parent="VBoxContainer/Args2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.01
+
+[node name="ContrastCurrentLabel" type="Label" parent="VBoxContainer/Args2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Args3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Args3"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Blur radius"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlurRadiusMinSpinBox" type="SpinBox" parent="VBoxContainer/Args3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10.0
+rounded = true
+allow_greater = true
+
+[node name="BlurRadiusMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 10.0
+rounded = true
+allow_greater = true
+
+[node name="BlurRadiusSlider" type="HSlider" parent="VBoxContainer/Args3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 0.01
+
+[node name="BlurRadiusCurrentLabel" type="Label" parent="VBoxContainer/Args3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Args4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Args4"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "HSV offset"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Args4"]
+layout_mode = 2
+
+[node name="HueMinSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="SaturationMinSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="ValueMinSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/Args4"]
+layout_mode = 2
+
+[node name="HueMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="SaturationMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="ValueMaxSpinBox" type="SpinBox" parent="VBoxContainer/Args4/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 3.0
+step = -1.0
+allow_greater = true
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/Args4"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HueSlider" type="HSlider" parent="VBoxContainer/Args4/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+step = 0.01
+
+[node name="SaturationSlider" type="HSlider" parent="VBoxContainer/Args4/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+step = 0.01
+
+[node name="ValueSlider" type="HSlider" parent="VBoxContainer/Args4/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+step = 0.01
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/Args4"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="HueCurrentLabel" type="Label" parent="VBoxContainer/Args4/VBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 7
+
+[node name="SaturationCurrentLabel" type="Label" parent="VBoxContainer/Args4/VBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 7
+
+[node name="ValueCurrentLabel" type="Label" parent="VBoxContainer/Args4/VBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 7
+
+[connection signal="value_changed" from="VBoxContainer/Args1/GammaMinSpinBox" to="." method="_on_gamma_min_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args1/GammaMaxSpinBox" to="." method="_on_gamma_max_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args1/GammaSlider" to="." method="_on_gamma_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args2/ContrastMinSpinBox" to="." method="_on_contrast_min_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args2/ContrastMaxSpinBox" to="." method="_on_contrast_max_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args2/ContrastSlider" to="." method="_on_contrast_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args3/BlurRadiusMinSpinBox" to="." method="_on_blur_radius_min_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args3/BlurRadiusMaxSpinBox" to="." method="_on_blur_radius_max_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args3/BlurRadiusSlider" to="." method="_on_blur_radius_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer/HueMinSpinBox" to="." method="_on_hue_min_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer/SaturationMinSpinBox" to="." method="_on_saturation_min_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer/ValueMinSpinBox" to="." method="_on_value_min_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer2/HueMaxSpinBox" to="." method="_on_hue_max_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer2/SaturationMaxSpinBox" to="." method="_on_saturation_max_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer2/ValueMaxSpinBox" to="." method="_on_value_max_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer3/HueSlider" to="." method="_on_hue_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer3/SaturationSlider" to="." method="_on_saturation_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Args4/VBoxContainer3/ValueSlider" to="." method="_on_value_slider_value_changed"]
