@@ -106,4 +106,10 @@ offset_top = 186.0
 offset_right = 1561.0
 offset_bottom = 436.0
 
+[node name="ArgsComponentContainer" type="VBoxContainer" parent="."]
+offset_left = 703.0
+offset_top = 13.0
+offset_right = 1583.0
+offset_bottom = 878.0
+
 [connection signal="pressed" from="ResultView/ImagePickerButton" to="." method="_on_image_picker_button_pressed"]
