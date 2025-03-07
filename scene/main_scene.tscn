@@ -27,30 +27,30 @@ use_native_dialog = true
 
 [node name="PathsScrollContainer" parent="PathArgs" instance=ExtResource("2_jsie2")]
 unique_name_in_owner = true
-offset_left = 958.0
-offset_top = 39.0
-offset_right = 1888.0
-offset_bottom = 199.0
+offset_left = 719.0
+offset_top = 11.0
+offset_right = 1568.0
+offset_bottom = 170.0
 
 [node name="ResultView" type="Node2D" parent="."]
 
 [node name="VisualViewportContainer" type="SubViewportContainer" parent="ResultView"]
-offset_left = 89.0
-offset_top = 201.0
-offset_right = 889.0
-offset_bottom = 1001.0
+offset_left = 27.0
+offset_top = 157.0
+offset_right = 667.0
+offset_bottom = 797.0
 
 [node name="VisualSubViewport" type="SubViewport" parent="ResultView/VisualViewportContainer"]
 unique_name_in_owner = true
 handle_input_locally = false
-size = Vector2i(800, 800)
+size = Vector2i(640, 640)
 render_target_update_mode = 4
 
 [node name="VisualTextureRect" type="TextureRect" parent="ResultView/VisualViewportContainer/VisualSubViewport"]
 unique_name_in_owner = true
 material = ExtResource("3_pi0uh")
-offset_right = 800.0
-offset_bottom = 800.0
+offset_right = 640.0
+offset_bottom = 640.0
 texture = ExtResource("4_hrphr")
 expand_mode = 1
 
@@ -69,10 +69,10 @@ unique_name_in_owner = true
 material = ExtResource("5_86xya")
 
 [node name="ImagePickerButton" type="Button" parent="ResultView"]
-offset_left = 245.0
-offset_top = 92.0
-offset_right = 734.0
-offset_bottom = 167.0
+offset_left = 45.0
+offset_top = 43.0
+offset_right = 534.0
+offset_bottom = 118.0
 theme_override_font_sizes/font_size = 48
 text = "Pick from file system"
 
@@ -80,10 +80,10 @@ text = "Pick from file system"
 
 [node name="ShaderSetting" parent="ShaderArgs" instance=ExtResource("6_cj0ow")]
 unique_name_in_owner = true
-offset_left = 1430.0
-offset_top = 690.0
-offset_right = 1430.0
-offset_bottom = 690.0
+offset_left = 1145.0
+offset_top = 665.0
+offset_right = 1145.0
+offset_bottom = 665.0
 scale = Vector2(1.5, 1.5)
 
 [node name="Console" type="Node2D" parent="."]
@@ -101,9 +101,9 @@ bbcode_enabled = true
 
 [node name="CustomShaderComponent" parent="Node2D" instance=ExtResource("7_qvu5t")]
 unique_name_in_owner = true
-offset_left = 1007.0
-offset_top = 217.0
-offset_right = 1873.0
-offset_bottom = 467.0
+offset_left = 727.0
+offset_top = 186.0
+offset_right = 1561.0
+offset_bottom = 436.0
 
 [connection signal="pressed" from="ResultView/ImagePickerButton" to="." method="_on_image_picker_button_pressed"]
