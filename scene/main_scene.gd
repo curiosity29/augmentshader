@@ -12,11 +12,19 @@ extends Node2D
 
 @onready var shader_setting: ShaderSetting = %ShaderSetting
 @onready var paths_scroll_container: PathArgsContainer = %PathsScrollContainer
+@onready var custom_shader_container: VBoxContainer = %CustomShaderContainer
+@onready var custom_shader_component: CustomShaderContainer = %CustomShaderComponent
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#open_folder_picker()
 	shader_setting.current_parameter_changed.connect(on_shader_parameter_changed)
 	on_shader_parameter_changed()
+	custom_shader_component.shader_updated.connect(update_custom_shader)
+	#visual_texture_rect.material = custom_shader_material
+
+func update_custom_shader():
+	visual_texture_rect.material = custom_shader_component.custom_shader_material
 
 #region UI
 func open_folder_picker(callback: Callable = func(): pass):
@@ -238,5 +246,10 @@ func get_image_files_in_folder(folder_path: String) -> Array:
 	
 	return files
 
+
+#endregion
+
+
+#region custom shader
 
 #endregion

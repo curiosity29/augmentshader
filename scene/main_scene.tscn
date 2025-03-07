@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ejcqifogemby"]
+[gd_scene load_steps=8 format=3 uid="uid://ejcqifogemby"]
 
 [ext_resource type="Script" uid="uid://b4irlffc58goe" path="res://scene/main_scene.gd" id="1_jsie2"]
 [ext_resource type="PackedScene" uid="uid://dyu67bdyfohp3" path="res://scene/paths_scroll_container.tscn" id="2_jsie2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ds2cs16nqp5h7" path="res://output.png" id="4_hrphr"]
 [ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="5_86xya"]
 [ext_resource type="PackedScene" uid="uid://7hfbjo4mjhpd" path="res://scene/shader_args.tscn" id="6_cj0ow"]
+[ext_resource type="PackedScene" uid="uid://bets28ji673vm" path="res://scene/custom_shader_component.tscn" id="7_qvu5t"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_jsie2")
@@ -26,10 +27,10 @@ use_native_dialog = true
 
 [node name="PathsScrollContainer" parent="PathArgs" instance=ExtResource("2_jsie2")]
 unique_name_in_owner = true
-offset_left = 930.0
-offset_top = 155.0
-offset_right = 1860.0
-offset_bottom = 315.0
+offset_left = 958.0
+offset_top = 39.0
+offset_right = 1888.0
+offset_bottom = 199.0
 
 [node name="ResultView" type="Node2D" parent="."]
 
@@ -95,5 +96,14 @@ offset_right = 1874.0
 offset_bottom = 450.0
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="CustomShaderComponent" parent="Node2D" instance=ExtResource("7_qvu5t")]
+unique_name_in_owner = true
+offset_left = 1007.0
+offset_top = 217.0
+offset_right = 1873.0
+offset_bottom = 467.0
 
 [connection signal="pressed" from="ResultView/ImagePickerButton" to="." method="_on_image_picker_button_pressed"]

@@ -19,16 +19,21 @@ Progress:
 #var input_folder = "user://input/test1/"
 #var input_folder = "C:/Users/admin/AppData/Roaming/Godot/app_userdata/augmentShader/input/test1"
 var input_folders: Array[String] = [
-	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05/train/",
-	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05/val/",
+	"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/egs_custom_2025_03_07/train",
+	"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/egs_custom_2025_03_07/val",
 	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05/test3/",
-	"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05/test3/",
+	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05/test3/",
+	#"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/no_table_splited_combined/train",
+	#"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/no_table_splited_combined/val",
+	#"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/no_table_splited_combined/test"
 ]
 var output_folders: Array[String] = [
-	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05_shadered/train/",
-	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05_shadered/val/",
-	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05_shadered/test3/",
-	"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05_testing/test3/",
+	"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/egs_custom_2025_03_07_shadered/train",
+	"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/egs_custom_2025_03_07_shadered/val",	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05_shadered/test3/",
+	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05_testing/test3/",
+	#"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/no_table_splited_combined_shadered/train",
+	#"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/no_table_splited_combined_shadered/val",
+	#"C:/Users/admin/Projects/table_rotation/datasets/reviewing_2025_02_26/no_table_splited_combined_shadered/test"
 ]
 
 var input_output_folders_map = {
@@ -82,10 +87,14 @@ func main():
 	for index in range(len(input_folders)):
 		var input_folder_path: String = input_folders[index]
 		var output_folder_path: String = output_folders[index]
+		if not input_folder_path.ends_with("/"):
+			input_folder_path += "/"
+		if not output_folder_path.ends_with("/"):
+			output_folder_path += "/"
 		print("running for ", input_folder_path)
 		augment_folder(input_folder_path, output_folder_path)
 		await done_augment_folder
-
+	get_tree().quit()
 func update_viewport_size():
 	#var texture_size: Vector2 = sprite_2d.get_rect().size
 	#get_viewport().size = texture_size
@@ -100,6 +109,7 @@ func update_viewport_size():
 func get_external_texture(path: String) -> Texture:
 	var img = Image.new()
 	var error = img.load(path)
+	#print(path)
 	#print("error: ", error)
 	var texture = ImageTexture.create_from_image(img)
 	#Image.create_from_image(img)
@@ -134,7 +144,6 @@ func augment_folder(input_folder_path: String, output_folder_path: String):
 		progress_label.text = progress_label_format % [output_folder_path, image_index, total_files]
 		image_index += 1
 		#print(sub_viewport.size)
-		break
 	progress_label.text = progress_label_format % [output_folder_path, image_index, total_files]
 	done_augment_folder.emit()
 signal done_augment
@@ -153,11 +162,12 @@ func augment_image(output_folder_path: String, image_name: String = ""):
 			
 		var file_path: String = "%s%d_%s" % [output_folder_path, index, image_name]
 		#print(file_path)
-		await capture_image(file_path)
+		#await 
+		capture_image(file_path)
 	done_augment.emit()
 	
 func capture_image(output_path: String):
-	await RenderingServer.frame_post_draw
+	#await RenderingServer.frame_post_draw
 	#var texture: Texture = get_viewport().get_texture()
 	#var texture: Texture = sub_viewport.get_texture()
 	#var image: Image = texture.get_image()
