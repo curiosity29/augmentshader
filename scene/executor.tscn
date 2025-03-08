@@ -1,21 +1,22 @@
 [gd_scene load_steps=4 format=3 uid="uid://ssps60ynp5b5"]
 
-[ext_resource type="Script" uid="uid://pl6w71e6j1t2" path="res://scene/test.gd" id="1_5u11y"]
-[ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="1_bp0px"]
-[ext_resource type="Texture2D" uid="uid://0q8pqrsemur" path="res://images/input.png" id="2_5u11y"]
+[ext_resource type="Script" uid="uid://pl6w71e6j1t2" path="res://scene/executor.gd" id="1_3boq5"]
+[ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="2_jltgv"]
+[ext_resource type="Texture2D" uid="uid://0q8pqrsemur" path="res://images/input.png" id="3_sijo0"]
 
-[node name="Test" type="Node2D"]
-script = ExtResource("1_5u11y")
+[node name="Executor" type="Node2D"]
+script = ExtResource("1_3boq5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
-material = ExtResource("1_bp0px")
-texture = ExtResource("2_5u11y")
+material = ExtResource("2_jltgv")
+texture = ExtResource("3_sijo0")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 unique_name_in_owner = true
@@ -24,11 +25,12 @@ render_target_update_mode = 4
 
 [node name="ViewportSprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-material = ExtResource("1_bp0px")
+material = ExtResource("2_jltgv")
 position = Vector2(175, 227)
-texture = ExtResource("2_5u11y")
+texture = ExtResource("3_sijo0")
 
 [node name="Node2D" type="Node2D" parent="."]
+visible = false
 
 [node name="ProgressLabel" type="RichTextLabel" parent="Node2D"]
 unique_name_in_owner = true
@@ -36,9 +38,11 @@ offset_left = 52.0
 offset_top = 35.0
 offset_right = 1103.0
 offset_bottom = 590.0
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "Progress:
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

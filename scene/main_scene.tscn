@@ -1,15 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://ejcqifogemby"]
+[gd_scene load_steps=10 format=3 uid="uid://ejcqifogemby"]
 
 [ext_resource type="Script" uid="uid://b4irlffc58goe" path="res://scene/main_scene.gd" id="1_jsie2"]
+[ext_resource type="Texture2D" uid="uid://de3vr60ohmf2o" path="res://icon.svg" id="2_hrphr"]
 [ext_resource type="PackedScene" uid="uid://dyu67bdyfohp3" path="res://scene/paths_scroll_container.tscn" id="2_jsie2"]
 [ext_resource type="Material" uid="uid://dy64uyqy5b0q1" path="res://shader/material/augmentUI.tres" id="3_pi0uh"]
-[ext_resource type="Texture2D" uid="uid://ds2cs16nqp5h7" path="res://output.png" id="4_hrphr"]
 [ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="5_86xya"]
+[ext_resource type="PackedScene" uid="uid://bnrbjd0f5winp" path="res://scene/visible_toggle.tscn" id="5_hrphr"]
 [ext_resource type="PackedScene" uid="uid://7hfbjo4mjhpd" path="res://scene/shader_args.tscn" id="6_cj0ow"]
 [ext_resource type="PackedScene" uid="uid://bets28ji673vm" path="res://scene/custom_shader_component.tscn" id="7_qvu5t"]
+[ext_resource type="PackedScene" uid="uid://ssps60ynp5b5" path="res://scene/executor.tscn" id="9_hrphr"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_jsie2")
+default_texture = ExtResource("2_hrphr")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
@@ -25,20 +28,13 @@ use_native_dialog = true
 
 [node name="PathArgs" type="Node2D" parent="."]
 
-[node name="PathsScrollContainer" parent="PathArgs" instance=ExtResource("2_jsie2")]
-unique_name_in_owner = true
-offset_left = 719.0
-offset_top = 11.0
-offset_right = 1568.0
-offset_bottom = 170.0
-
 [node name="ResultView" type="Node2D" parent="."]
 
 [node name="VisualViewportContainer" type="SubViewportContainer" parent="ResultView"]
 offset_left = 27.0
-offset_top = 157.0
+offset_top = 141.0
 offset_right = 667.0
-offset_bottom = 797.0
+offset_bottom = 781.0
 
 [node name="VisualSubViewport" type="SubViewport" parent="ResultView/VisualViewportContainer"]
 unique_name_in_owner = true
@@ -51,13 +47,15 @@ unique_name_in_owner = true
 material = ExtResource("3_pi0uh")
 offset_right = 640.0
 offset_bottom = 640.0
-texture = ExtResource("4_hrphr")
+texture = ExtResource("2_hrphr")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="CaptureViewportContainer" type="SubViewportContainer" parent="ResultView"]
 modulate = Color(1, 1, 1, 0)
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_lock_ = true
 
 [node name="CaptureSubViewport" type="SubViewport" parent="ResultView/CaptureViewportContainer"]
 unique_name_in_owner = true
@@ -67,49 +65,115 @@ render_target_update_mode = 4
 [node name="CaptureSprite2D" type="Sprite2D" parent="ResultView/CaptureViewportContainer/CaptureSubViewport"]
 unique_name_in_owner = true
 material = ExtResource("5_86xya")
+metadata/_edit_lock_ = true
 
 [node name="ImagePickerButton" type="Button" parent="ResultView"]
-offset_left = 45.0
-offset_top = 43.0
-offset_right = 534.0
-offset_bottom = 118.0
+offset_left = 365.0
+offset_top = 23.0
+offset_right = 588.0
+offset_bottom = 121.0
+theme_override_font_sizes/font_size = 32
+text = "Pick from
+file system"
+
+[node name="LoadDefaultImages" type="Button" parent="ResultView"]
+offset_left = 68.0
+offset_top = 19.0
+offset_right = 293.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 32
+text = "load defaults
+images"
+
+[node name="StartButton" type="Button" parent="ResultView"]
+offset_left = 63.0
+offset_top = 794.0
+offset_right = 621.0
+offset_bottom = 880.0
 theme_override_font_sizes/font_size = 48
-text = "Pick from file system"
+text = "START AUGMENTING"
 
 [node name="ShaderArgs" type="Node2D" parent="."]
 
-[node name="ShaderSetting" parent="ShaderArgs" instance=ExtResource("6_cj0ow")]
-unique_name_in_owner = true
-offset_left = 1145.0
-offset_top = 665.0
-offset_right = 1145.0
-offset_bottom = 665.0
-scale = Vector2(1.5, 1.5)
-
 [node name="Console" type="Node2D" parent="."]
-
-[node name="ProgressLabel" type="RichTextLabel" parent="Console"]
-unique_name_in_owner = true
-offset_left = 935.0
-offset_top = 336.0
-offset_right = 1874.0
-offset_bottom = 450.0
-theme_override_font_sizes/normal_font_size = 16
-bbcode_enabled = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="CustomShaderComponent" parent="Node2D" instance=ExtResource("7_qvu5t")]
-unique_name_in_owner = true
-offset_left = 727.0
-offset_top = 186.0
-offset_right = 1561.0
-offset_bottom = 436.0
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 717.0
+offset_top = 1.0
+offset_right = 1552.0
+offset_bottom = 897.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
-[node name="ArgsComponentContainer" type="VBoxContainer" parent="."]
-offset_left = 703.0
-offset_top = 13.0
-offset_right = 1583.0
-offset_bottom = 878.0
+[node name="ArgsComponentContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="VisibleToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+layout_mode = 2
+button_pressed = true
+target_node = NodePath("../PathsScrollContainer")
+
+[node name="PathsScrollContainer" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("2_jsie2")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+
+[node name="VisibleToggle2" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+layout_mode = 2
+button_pressed = true
+text = "Shader setting"
+target_node = NodePath("../ShaderSetting")
+
+[node name="ShaderSetting" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("6_cj0ow")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+
+[node name="VisibleToggle3" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+layout_mode = 2
+text = "Custom Shader"
+target_node = NodePath("../CustomShaderComponent")
+
+[node name="CustomShaderComponent" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("7_qvu5t")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="VisibleToggle4" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+layout_mode = 2
+button_pressed = true
+text = "Progress"
+target_node = NodePath("../ProgressLabel")
+
+[node name="ProgressLabel" type="RichTextLabel" parent="ScrollContainer/ArgsComponentContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Nothing started"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="VisibleToggle5" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+layout_mode = 2
+text = "Console"
+target_node = NodePath("../Console")
+
+[node name="Console" type="RichTextLabel" parent="ScrollContainer/ArgsComponentContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Unimplemented"
+
+[node name="Executor" parent="." instance=ExtResource("9_hrphr")]
 
 [connection signal="pressed" from="ResultView/ImagePickerButton" to="." method="_on_image_picker_button_pressed"]
+[connection signal="pressed" from="ResultView/LoadDefaultImages" to="." method="_on_load_default_images_pressed"]
+[connection signal="pressed" from="ResultView/StartButton" to="." method="_on_start_button_pressed"]

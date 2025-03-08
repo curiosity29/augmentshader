@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnrbjd0f5winp"]
+
+[ext_resource type="Script" uid="uid://dm58emhbuxt16" path="res://scene/VisibleToggleButton.gd" id="1_hrtt1"]
+[ext_resource type="Texture2D" uid="uid://cp5cs4rxwewsc" path="res://Resource/Texture/down_triangle.png" id="2_kbcle"]
+
+[node name="VisibleToggle" type="Button"]
+offset_right = 597.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+text = "Paths"
+script = ExtResource("1_hrtt1")
+metadata/_custom_type_script = "uid://dm58emhbuxt16"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_kbcle")

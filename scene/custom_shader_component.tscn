@@ -18,7 +18,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="CustomShaderContainer"]
+visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Custom Shader"
 horizontal_alignment = 1
 vertical_alignment = 1
