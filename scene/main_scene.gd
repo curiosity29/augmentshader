@@ -16,6 +16,7 @@ var visual_material: ShaderMaterial:
 @onready var shader_setting: ShaderSetting = %ShaderSetting
 @onready var paths_scroll_container: PathArgsContainer = %PathsScrollContainer
 @onready var custom_shader_component: CustomShaderContainer = %CustomShaderComponent
+@onready var other_setting: OtherSetting = $ScrollContainer/ArgsComponentContainer/OtherSetting
 @onready var executor: Executor = $Executor
 
 #endregion
@@ -32,22 +33,22 @@ func _ready() -> void:
 	#open_folder_picker()
 	shader_setting.current_parameter_changed.connect(_on_shader_parameter_changed)
 	_on_shader_parameter_changed()
-	executor.folder_progress_updated.connect(_on_execute_progress_updated.bind(false))
-	executor.done_augment_folder.connect(_on_execute_progress_updated.bind(true))
+	executor.folder_progress_updated.connect(_on_execute_progress_updated)
+	executor.done_execute.connect(_on_execute_done)
 	custom_shader_component.shader_updated.connect(update_custom_shader)
 	#visual_texture_rect.material = custom_shader_material
+func _on_execute_done():
+	progress_label.text = done_progress_label_format % [
+		executor.last_run_time,
+		executor.current_input_folder, executor.current_output_folder,
+		executor.current_folder_processed_count, executor.current_folder_total_count,
+	]
 
-func _on_execute_progress_updated(processed_count: int, total_count: int, is_done: bool = false):
-	if is_done:
-		progress_label.text = done_progress_label_format % [
-			executor.current_input_folder, executor.current_output_folder,
-			processed_count, total_count
-		]
-	else:
-		progress_label.text = running_progress_label_format % [
-			executor.current_input_folder, executor.current_output_folder,
-			processed_count, total_count
-		]
+func _on_execute_progress_updated():
+	progress_label.text = running_progress_label_format % [
+		executor.current_input_folder, executor.current_output_folder,
+		executor.current_folder_processed_count, executor.current_folder_total_count
+	]
 
 func update_custom_shader():
 	visual_texture_rect.material = custom_shader_component.custom_shader_material
@@ -112,7 +113,7 @@ From:\t%s
 To:\t%s
 Processed: %d / %d images"""
 var done_progress_label_format = \
-"""Status: DONE
+"""Status: DONE (in %.2f seconds)
 From:\t%s
 To:\t%s
 Processed: %d / %d images"""
@@ -125,8 +126,11 @@ var shader_paramters: Dictionary[String, Array]:
 	get: return shader_setting.shader_parameters_range
 
 func _on_start_button_pressed() -> void:
+	if executor.is_executing:
+		return
 	executor.execute_setup(
-		shader_paramters, paths_scroll_container.input_output_folders_map
+		shader_paramters, paths_scroll_container.input_output_folders_map,
+		other_setting.current_setting["variation_count"]
 	)
 	executor.execute()
 	

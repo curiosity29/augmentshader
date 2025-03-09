@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctanfjahougby"]
+
+[ext_resource type="Script" uid="uid://b1bvllfjo3j40" path="res://scene/other_setting.gd" id="1_rswk7"]
+[ext_resource type="PackedScene" uid="uid://7cld2fnd8lwf" path="res://scene/float_arg_modifier.tscn" id="1_v42we"]
+
+[node name="OtherSetting" type="VBoxContainer"]
+script = ExtResource("1_rswk7")
+
+[node name="TitleBar" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TitleBar"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Parameters"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="TitleBar"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Min Value"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="TitleBar"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Max Value"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="TitleBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Slide"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="TitleBar"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Current"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VariationCountModifier" parent="." instance=ExtResource("1_v42we")]
+layout_mode = 2
+integer_rounded = true
+snap_step_size = 1.0
+enable_hard_max = false
+hard_max_value = 20.0
+min_value = 6.0
+max_value = 6.0
+current_value = 6.0
+arg_name = "Variations count"

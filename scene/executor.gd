@@ -5,9 +5,10 @@ extends Node2D
 #region signal
 
 signal load_error(error_code: int, image_path: String)
-
 signal done_augment_folder
-signal folder_progress_updated(processed: int, total: int)
+
+signal done_execute
+signal folder_progress_updated
 #endregion 
 
 #@onready var sprite_2d: Sprite2D = $Sprite2D
@@ -20,10 +21,11 @@ var current_folder_processed_count: int = 0:
 	set(value):
 		current_folder_processed_count = value
 		if is_executing:
-			folder_progress_updated.emit(current_folder_processed_count, current_folder_total_count)
+			folder_progress_updated.emit()
 var current_folder_total_count: int = 0
 var current_input_folder: String
 var current_output_folder: String
+var last_run_time: float = 0.0
 
 var progress_label_format = \
 """ Running %s
@@ -53,11 +55,11 @@ var shader_paramters_range: Dictionary[String, Array] = {
 func execute_setup(
 	init_shader_paramters_range: Dictionary[String, Array], 
 	init_input_output_folders_map: Dictionary[String, String],
-	
+	init_variation_count: int
 	):
 	shader_paramters_range = init_shader_paramters_range
 	input_output_folders_map = init_input_output_folders_map
-	
+	variations_each_image = init_variation_count
 
 func get_random_shader_parameter():
 	var blur_radius_range = shader_paramters_range["blur_radius"]
@@ -108,8 +110,10 @@ func execute():
 	
 	var execute_end_msec = Time.get_ticks_msec()
 	var execute_sec: float = (execute_end_msec - execute_start_msec) / 1000.0
+	last_run_time = execute_sec
 	print("done in %.2f" % execute_sec)
 	is_executing = false
+	done_execute.emit()
 	#get_tree().quit()
 	
 func update_viewport_size():
@@ -154,24 +158,27 @@ func augment_folder(input_folder_path: String, output_folder_path: String):
 		
 		#await get_tree().create_timer(0.1, false).timeout#.connect(augment_image.bind(image_path))
 		#print("img path: ", image_path)
-		RenderingServer.frame_post_draw.connect(augment_image.bind(output_folder_path, image_name), CONNECT_ONE_SHOT)
+		#
+		augment_image(output_folder_path, image_name)#, CONNECT_ONE_SHOT)
 		#augment_image(image_path)
 		#continue
 		#augment_image()
-		await done_augment
+		await done_augment_image
 		progress_label.text = progress_label_format % [output_folder_path, current_folder_processed_count, current_folder_total_count]
 		current_folder_processed_count += 1
 		#print(sub_viewport.size)
 	
 	progress_label.text = progress_label_format % [output_folder_path, current_folder_processed_count, current_folder_total_count]
 	done_augment_folder.emit()
-signal done_augment
+	
+signal done_augment_image
 func augment_image(output_folder_path: String, image_name: String = ""):
 	if not output_folder_path.ends_with("/"):
 		output_folder_path += "/"
 	for index in range(variations_each_image):
 		var shader_parameter = get_random_shader_parameter()
 		#await get_tree().create_timer(0.01, false).timeout
+		await RenderingServer.frame_pre_draw
 		for key in shader_parameter:
 			
 			var sprite_material = viewport_sprite_2d.material
@@ -182,8 +189,10 @@ func augment_image(output_folder_path: String, image_name: String = ""):
 		var file_path: String = "%s%d_%s" % [output_folder_path, index, image_name]
 		#print(file_path)
 		#await 
+		await RenderingServer.frame_post_draw
 		capture_image(file_path)
-	done_augment.emit()
+
+	done_augment_image.emit()
 	
 func capture_image(output_path: String):
 	#await RenderingServer.frame_post_draw

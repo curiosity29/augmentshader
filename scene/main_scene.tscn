@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ejcqifogemby"]
+[gd_scene load_steps=11 format=3 uid="uid://ejcqifogemby"]
 
 [ext_resource type="Script" uid="uid://b4irlffc58goe" path="res://scene/main_scene.gd" id="1_jsie2"]
 [ext_resource type="Texture2D" uid="uid://de3vr60ohmf2o" path="res://icon.svg" id="2_hrphr"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bnrbjd0f5winp" path="res://scene/visible_toggle.tscn" id="5_hrphr"]
 [ext_resource type="PackedScene" uid="uid://7hfbjo4mjhpd" path="res://scene/shader_args.tscn" id="6_cj0ow"]
 [ext_resource type="PackedScene" uid="uid://bets28ji673vm" path="res://scene/custom_shader_component.tscn" id="7_qvu5t"]
+[ext_resource type="PackedScene" uid="uid://ctanfjahougby" path="res://scene/other_setting.tscn" id="8_86xya"]
 [ext_resource type="PackedScene" uid="uid://ssps60ynp5b5" path="res://scene/executor.tscn" id="9_hrphr"]
 
 [node name="MainScene" type="Node2D"]
@@ -114,7 +115,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="VisibleToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+[node name="PathsToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
 layout_mode = 2
 button_pressed = true
 target_node = NodePath("../PathsScrollContainer")
@@ -124,7 +125,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 
-[node name="VisibleToggle2" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+[node name="ShaderSettingToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
 layout_mode = 2
 button_pressed = true
 text = "Shader setting"
@@ -135,18 +136,16 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
 
-[node name="VisibleToggle3" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+[node name="OtherSettingToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
 layout_mode = 2
-text = "Custom Shader"
-target_node = NodePath("../CustomShaderComponent")
+button_pressed = true
+text = "Other Setting"
+target_node = NodePath("../OtherSetting")
 
-[node name="CustomShaderComponent" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("7_qvu5t")]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(0, 300)
+[node name="OtherSetting" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("8_86xya")]
 layout_mode = 2
 
-[node name="VisibleToggle4" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+[node name="ProgressToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
 layout_mode = 2
 button_pressed = true
 text = "Progress"
@@ -162,15 +161,30 @@ text = "Nothing started"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="VisibleToggle5" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+[node name="CustomShaderToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+layout_mode = 2
+text = "Custom Shader (currently only for visual)"
+target_node = NodePath("../CustomShaderComponent")
+
+[node name="CustomShaderComponent" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("7_qvu5t")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+
+[node name="ConsoleToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+visible = false
 layout_mode = 2
 text = "Console"
 target_node = NodePath("../Console")
 
 [node name="Console" type="RichTextLabel" parent="ScrollContainer/ArgsComponentContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 bbcode_enabled = true
 text = "Unimplemented"
+vertical_alignment = 1
 
 [node name="Executor" parent="." instance=ExtResource("9_hrphr")]
 
