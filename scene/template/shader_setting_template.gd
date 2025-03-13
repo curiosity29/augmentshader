@@ -52,39 +52,31 @@ func _ready() -> void:
 		var arg_nodes: Array[FloatArgModifier] = []
 		var default_value
 		var arg_name: String = property["name"]
+		print(property)
 		match property.type:
 			2:
-				default_value = shader.get_default_texture_parameter(arg_name)
-				property["default_value"] = default_value
+				#default_value = shader.get_default_texture_parameter(arg_name)
+				#print(arg_name)
+				#print(default_value)
 				new_arg = int_arg_scene.instantiate()
 				setup_float_arg(new_arg, property)
 				arg_nodes.append(new_arg)
 			3:
-				default_value = shader.get_default_texture_parameter(arg_name)
-				property["default_value"] = default_value
 				new_arg = float_arg_scene.instantiate()
 				setup_float_arg(new_arg, property)
 				arg_nodes.append(new_arg)
 			9:
-				default_value = shader.get_default_texture_parameter(arg_name, 0)
-				property["default_value"] = default_value
 				#var axis_arg_property: Dictionary = property.duplicate(true)
 				property["name"] = arg_name + "\nx"
 				new_arg = float_arg_scene.instantiate()
 				setup_float_arg(new_arg, property)
 				arg_nodes.append(new_arg)
 				
-				default_value = shader.get_default_texture_parameter(arg_name, 1)
-				property["default_value"] = default_value
 				property["name"] = arg_name + "\ny"
 				new_arg = float_arg_scene.instantiate()
 				setup_float_arg(new_arg, property)
 				arg_nodes.append(new_arg)
 				
-				default_value = shader.get_default_texture_parameter(arg_name, 2)
-				print(arg_name)
-				print(default_value)
-				property["default_value"] = default_value
 				property["name"] = arg_name + "\nz"
 				new_arg = float_arg_scene.instantiate()
 				setup_float_arg(new_arg, property)
@@ -120,7 +112,7 @@ func setup_float_arg(scene: FloatArgModifier, property: Dictionary) -> void:
 		scene.max_value = float(hint_string_array[1])
 		
 		scene.snap_step_size = float(hint_string_array[2])
-		scene.current_value = property["default_value"]
+		scene.current_value = property["hint"]
 	else:
 		print("Unintended: invalid hint format")
 		
