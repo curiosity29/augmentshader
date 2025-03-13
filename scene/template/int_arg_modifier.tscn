@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkfsumrpxqwjm"]
+
+[ext_resource type="PackedScene" uid="uid://7cld2fnd8lwf" path="res://scene/template/float_arg_modifier.tscn" id="1_vf2fs"]
+
+[node name="IntArgModifier" instance=ExtResource("1_vf2fs")]

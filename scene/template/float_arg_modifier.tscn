@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://7cld2fnd8lwf"]
 
-[ext_resource type="Script" uid="uid://c4sfme58j5xwo" path="res://scene/float_arg_modifier.gd" id="1_pciw1"]
+[ext_resource type="Script" uid="uid://c4sfme58j5xwo" path="res://scene/float_arg_modifier.gd" id="1_u8yec"]
 
 [node name="FloatArgModifier" type="HBoxContainer"]
 offset_right = 541.0
 offset_bottom = 31.0
-script = ExtResource("1_pciw1")
+script = ExtResource("1_u8yec")
 hard_min_value = 1.0
 hard_max_value = 2.0
 min_value = 1.0

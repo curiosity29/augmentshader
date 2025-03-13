@@ -5,6 +5,19 @@ extends Control
 signal current_parameter_changed
 #endregion
 
+
+
+#region base component ref
+@export_group("init")
+@export var shader: Shader
+
+@export_group("building blocks")
+@export var float_arg_scene: PackedScene
+@export var int_arg_scene: PackedScene
+@export var vec3_arg_scene: PackedScene
+
+#endregion
+
 #region component ref
 @onready var args_container: VBoxContainer = %ArgsContainer
 

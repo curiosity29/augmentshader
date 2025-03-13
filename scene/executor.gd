@@ -33,7 +33,7 @@ Progress:
 %d / %d images
 """
 
-
+@export var shader_material: ShaderMaterial
 @export var input_output_folders_map: Dictionary[String, String] = {
 	#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05/test3/": \
 		#"C:/Users/admin/Projects/table_rotation/datasets/augmented_Mar5/generated_v3/egs_and_no_table_2025_03_05_testing/test3/",
@@ -55,11 +55,15 @@ var shader_paramters_range: Dictionary[String, Array] = {
 func execute_setup(
 	init_shader_paramters_range: Dictionary[String, Array], 
 	init_input_output_folders_map: Dictionary[String, String],
-	init_variation_count: int
+	init_variation_count: int,
+	init_shader_material: ShaderMaterial
 	):
 	shader_paramters_range = init_shader_paramters_range
 	input_output_folders_map = init_input_output_folders_map
 	variations_each_image = init_variation_count
+	shader_material = init_shader_material
+	if viewport_sprite_2d.material: viewport_sprite_2d.material.free()
+	viewport_sprite_2d.material = shader_material
 
 func get_random_shader_parameter():
 	var blur_radius_range = shader_paramters_range["blur_radius"]
@@ -92,6 +96,7 @@ func _ready() -> void:
 		get_tree().create_timer(0.1, false).timeout.connect(execute)
 
 func execute():
+	
 	is_executing = true
 	var execute_start_msec = Time.get_ticks_msec()
 	#assert(len(input_folders) == len(output_folders))
