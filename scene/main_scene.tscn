@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://ejcqifogemby"]
+[gd_scene load_steps=13 format=3 uid="uid://ejcqifogemby"]
 
 [ext_resource type="Script" uid="uid://b4irlffc58goe" path="res://scene/main_scene.gd" id="1_jsie2"]
+[ext_resource type="PackedScene" uid="uid://c16gi3ylo6fgw" path="res://scene/template/shader_setting_template.tscn" id="2_cj0ow"]
 [ext_resource type="Texture2D" uid="uid://de3vr60ohmf2o" path="res://icon.svg" id="2_hrphr"]
 [ext_resource type="PackedScene" uid="uid://dyu67bdyfohp3" path="res://scene/paths_scroll_container.tscn" id="2_jsie2"]
 [ext_resource type="Material" uid="uid://dy64uyqy5b0q1" path="res://shader/material/augmentUI.tres" id="3_pi0uh"]
+[ext_resource type="Shader" uid="uid://jw0vlhrxo20i" path="res://shader/script/augment.gdshader" id="4_xavy2"]
 [ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="5_86xya"]
 [ext_resource type="PackedScene" uid="uid://bnrbjd0f5winp" path="res://scene/visible_toggle.tscn" id="5_hrphr"]
 [ext_resource type="PackedScene" uid="uid://7hfbjo4mjhpd" path="res://scene/shader_args.tscn" id="6_cj0ow"]
@@ -13,6 +15,9 @@
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_jsie2")
+shader_setting_template_scene = ExtResource("2_cj0ow")
+visible_toggle_button_scene = ExtResource("5_hrphr")
+default_shader = ExtResource("4_xavy2")
 default_texture = ExtResource("2_hrphr")
 
 [node name="FileDialog" type="FileDialog" parent="."]
@@ -109,6 +114,7 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
 [node name="ArgsComponentContainer" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -125,17 +131,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 
-[node name="ShaderSettingToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
-layout_mode = 2
-button_pressed = true
-text = "Shader setting"
-target_node = NodePath("../ShaderSetting")
-
-[node name="ShaderSetting" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("6_cj0ow")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 320)
-layout_mode = 2
-
 [node name="OtherSettingToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
 layout_mode = 2
 button_pressed = true
@@ -147,12 +142,13 @@ layout_mode = 2
 
 [node name="ProgressToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
 layout_mode = 2
-button_pressed = true
+toggle_mode = false
 text = "Progress"
 target_node = NodePath("../ProgressLabel")
 
 [node name="ProgressLabel" type="RichTextLabel" parent="ScrollContainer/ArgsComponentContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
@@ -168,7 +164,6 @@ target_node = NodePath("../CustomShaderComponent")
 
 [node name="CustomShaderComponent" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("7_qvu5t")]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
@@ -185,6 +180,19 @@ layout_mode = 2
 bbcode_enabled = true
 text = "Unimplemented"
 vertical_alignment = 1
+
+[node name="ShaderSettingToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
+visible = false
+layout_mode = 2
+toggle_mode = false
+text = "Shader setting"
+target_node = NodePath("../ShaderSetting")
+
+[node name="ShaderSetting" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("6_cj0ow")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
 
 [node name="Executor" parent="." instance=ExtResource("9_hrphr")]
 

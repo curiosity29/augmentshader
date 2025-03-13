@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://7hfbjo4mjhpd"]
 
 [ext_resource type="Script" uid="uid://b0gtf8v6xomb0" path="res://scene/shader_args.gd" id="1_hpira"]
-[ext_resource type="PackedScene" uid="uid://7cld2fnd8lwf" path="res://scene/float_arg_modifier.tscn" id="2_72dmf"]
+[ext_resource type="PackedScene" uid="uid://7cld2fnd8lwf" path="res://scene/template/float_arg_modifier.tscn" id="2_72dmf"]
 
 [node name="ShaderSetting" type="Control"]
 layout_mode = 3

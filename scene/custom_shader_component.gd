@@ -4,6 +4,7 @@ extends Control
 signal shader_updated
 
 @onready var shader_code_edit: CodeEdit = %ShaderCodeEdit
+
 var custom_shader_material: ShaderMaterial
 var custom_shader: Shader
 func update_custom_shader() -> void:
@@ -18,7 +19,7 @@ func update_custom_shader() -> void:
 	custom_shader.code = shader_code
 	#var shader_material = ShaderMaterial.new()
 	custom_shader_material.shader = custom_shader
-	
+	custom_shader.get_shader_uniform_list()
 	#new_shader.free()
 	shader_updated.emit()
 	
@@ -27,3 +28,13 @@ func update_custom_shader() -> void:
 func _on_shader_update_button_pressed() -> void:
 	update_custom_shader()
 	pass
+
+
+#func _ready() -> void:
+	#shader_code_edit.text = default_shader.code
+	#update_custom_shader()
+	#pass
+	# setting default shade using this custom scene
+	
+	
+	

@@ -1,8 +1,7 @@
 shader_type canvas_item;
-uniform int blur_radius : hint_range(0, 10) = 0;  // Adjust the radius for blur intensity
-uniform float middle_mult = 5.0;
-uniform float gamma = 1.0;
-uniform vec3 hsv_offset = vec3(0.0, 0.0, 0.0);
+uniform int blur_radius : hint_range(0, 10, 1) = 0;  // Adjust the radius for blur intensity
+uniform float blur_middle_mult: hint_range(1.0, 10.0, 0.1) = 1.0;
+uniform float gamma: hint_range(-1.0, 5.0, 0.1) = 1.0;
 uniform float contrast: hint_range(-1.0, 5.0, 0.1) = 1.0;
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -56,9 +55,9 @@ void fragment() {
             count++;
         }
     }
-	color += texture(TEXTURE, UV.xy) * (middle_mult - 1.0);
+	color += texture(TEXTURE, UV.xy) * (blur_middle_mult - 1.0);
     // Calculate the average color
-    color /= (float(count) + middle_mult - 1.0);
+    color /= (float(count) + blur_middle_mult - 1.0);
 
 	// GAMMA
 	color.rgb = vec3(pow(color.r, gamma), pow(color.g, gamma),pow(color.b, gamma));
@@ -67,7 +66,6 @@ void fragment() {
 
 	vec3 hsv_color = rgb2hsv(color.rgb);
 	//hsv_color.rgb = fract(hsv_offset + hsv_color.rgb);
-	hsv_color += hsv_offset;
 	hsv_color = vec3(
 		fract(hsv_color.r),
 		min(1.0, hsv_color.g),
