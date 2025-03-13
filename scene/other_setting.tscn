@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctanfjahougby"]
 
 [ext_resource type="Script" uid="uid://b1bvllfjo3j40" path="res://scene/other_setting.gd" id="1_rswk7"]
-[ext_resource type="PackedScene" uid="uid://7cld2fnd8lwf" path="res://scene/template/float_arg_modifier.tscn" id="1_v42we"]
+[ext_resource type="PackedScene" uid="uid://7cld2fnd8lwf" path="res://scene/float_arg_modifier.tscn" id="1_v42we"]
 
 [node name="OtherSetting" type="VBoxContainer"]
 script = ExtResource("1_rswk7")

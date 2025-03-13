@@ -1,15 +1,8 @@
 extends Node2D
 
-#region base component ref
-@export var shader_setting_template_scene: PackedScene
-@export var visible_toggle_button_scene: PackedScene
-@export var default_shader: Shader
 
-
-#endregion
 
 #region component ref
-
 @onready var file_dialog: FileDialog = $FileDialog
 
 @onready var visual_sub_viewport: SubViewport = %VisualSubViewport
@@ -25,11 +18,7 @@ var visual_material: ShaderMaterial:
 @onready var custom_shader_component: CustomShaderContainer = %CustomShaderComponent
 @onready var other_setting: OtherSetting = $ScrollContainer/ArgsComponentContainer/OtherSetting
 @onready var executor: Executor = $Executor
-@onready var args_component_container: VBoxContainer = %ArgsComponentContainer
 
-var current_shader_setting_visible_button: VisibleToggleButton
-var current_shader_setting_ui: ShaderSettingTemplate
-	
 #endregion
 
 #region vars
@@ -47,12 +36,6 @@ func _ready() -> void:
 	executor.folder_progress_updated.connect(_on_execute_progress_updated)
 	executor.done_execute.connect(_on_execute_done)
 	custom_shader_component.shader_updated.connect(update_custom_shader)
-	
-	## set default shader
-	custom_shader_component.shader_code_edit.text = default_shader.code
-	custom_shader_component.update_custom_shader()
-	#update_custom_shader()
-	
 	#visual_texture_rect.material = custom_shader_material
 func _on_execute_done():
 	progress_label.text = done_progress_label_format % [
@@ -68,30 +51,7 @@ func _on_execute_progress_updated():
 	]
 
 func update_custom_shader():
-	#visual_texture_rect.material = custom_shader_component.custom_shader_material
-	update_new_shader_ui(custom_shader_component.custom_shader)
-	visual_texture_rect.material = current_shader_setting_ui.shader_material
-
-func update_new_shader_ui(shader: Shader):
-	if current_shader_setting_ui: current_shader_setting_ui.queue_free()
-	if current_shader_setting_visible_button: current_shader_setting_visible_button.queue_free()
-	
-	var new_visible_button: VisibleToggleButton = visible_toggle_button_scene.instantiate()
-	var new_shader_setting_ui: ShaderSettingTemplate = shader_setting_template_scene.instantiate()
-	new_shader_setting_ui.shader = shader
-	
-	new_visible_button.target_node = new_shader_setting_ui
-	new_visible_button.text = "Shader setting"
-	args_component_container.add_child(new_visible_button)
-	args_component_container.add_child(new_shader_setting_ui)
-	
-	current_shader_setting_ui = new_shader_setting_ui
-	current_shader_setting_visible_button = new_visible_button
-	
-	
-	
-	
-	pass
+	visual_texture_rect.material = custom_shader_component.custom_shader_material
 
 #endregion
 
@@ -133,10 +93,15 @@ func load_and_change_visual_image(image_path: String):
 	capture_sprite_2d.texture = new_texture
 	
 func _on_shader_parameter_changed():
-	## NOTE: parameter value update moved to shader setting template
-	pass
+	#print()
+	var new_shader_parameter: Dictionary = shader_setting.shader_parameters_current
+	for parameter_name in new_shader_parameter:
+		#visual_material.set_shader_parameter(parameter_name, new_shader_parameter[parameter_name])
+		visual_texture_rect.material.set_shader_parameter(parameter_name, new_shader_parameter[parameter_name])
+		#print(parameter_name, ", ", new_shader_parameter[parameter_name])
+		#print(visual_texture_rect.material.get_shader_parameter(parameter_name))
 	
-
+	
 #endregion
 
 
@@ -163,14 +128,9 @@ var shader_paramters: Dictionary[String, Array]:
 func _on_start_button_pressed() -> void:
 	if executor.is_executing:
 		return
-		
-	var new_shader_material: ShaderMaterial = ShaderMaterial.new()
-	new_shader_material.shader = current_shader_setting_ui.shader
-	
 	executor.execute_setup(
 		shader_paramters, paths_scroll_container.input_output_folders_map,
-		other_setting.current_setting["variation_count"],
-		new_shader_material
+		other_setting.current_setting["variation_count"]
 	)
 	executor.execute()
 	
