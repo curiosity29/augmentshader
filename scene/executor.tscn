@@ -6,6 +6,10 @@
 [node name="Executor" type="Node2D"]
 script = ExtResource("1_3boq5")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("2_jltgv")
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_right = 40.0
