@@ -18,6 +18,7 @@ script = ExtResource("1_jsie2")
 shader_setting_template_scene = ExtResource("2_cj0ow")
 visible_toggle_button_scene = ExtResource("5_hrphr")
 default_shader = ExtResource("4_xavy2")
+default_shader_material = ExtResource("3_pi0uh")
 default_texture = ExtResource("2_hrphr")
 
 [node name="FileDialog" type="FileDialog" parent="."]

@@ -10,7 +10,7 @@ signal current_parameter_changed
 #region base component ref
 @export_group("init")
 @export var shader: Shader
-@export var shader_material: ShaderMaterial
+@export var shader_material: ShaderMaterial# = ShaderMaterial.new()
 
 @export_group("building blocks")
 @export var float_arg_scene: PackedScene
@@ -34,7 +34,10 @@ signal current_parameter_changed
 #TYPE_VECTOR2I = 6
 #TYPE_VECTOR3 = 9
 #TYPE_VECTOR3I = 10
-
+# Vec4 12
+# Vec4i 13
+var vector_prop_name: Array[String] = ["x", "y", "z", "w"]
+var vector_prop_name_addon: Array[String] = ["\nx", "\ny", "\nz", "\nw"]
 var args_metadata: Dictionary = {}#\
 #{
 	#"contrast": {
@@ -43,44 +46,47 @@ var args_metadata: Dictionary = {}#\
 	#}
 #}
 #endregion
+@onready var texture_rect: TextureRect = $TextureRect
 
 func _ready() -> void:
 	
+	
+	#shader_material = ShaderMaterial.new()
+	#shader_material.shader = shader
+	#print(shader_material)
+	## NOTE: NO FUCKING IDEA WHY THE MATERIAL PARAMETER IS NULL INSTEAD OF THE DEFAULT AFTER INIT
+	## WORK AROUND: save it to some random place before poking it (see in the custom shader component)
+	#var texture_rect = TextureRect.new()
+	#print("gamma: ", shader_material.get_shader_parameter("gamma"))
 	for property: Dictionary in shader.get_shader_uniform_list():
 		## NOTE: not sure if directly modifying property cause any problem in get_shader_uniform_list
-		var new_arg: FloatArgModifier
+		# var new_arg: FloatArgModifier
+		#print(property)
 		var arg_nodes: Array[FloatArgModifier] = []
-		var default_value
 		var arg_name: String = property["name"]
-		print(property)
 		match property.type:
-			2:
-				#default_value = shader.get_default_texture_parameter(arg_name)
-				#print(arg_name)
-				#print(default_value)
-				new_arg = int_arg_scene.instantiate()
-				setup_float_arg(new_arg, property)
-				arg_nodes.append(new_arg)
-			3:
-				new_arg = float_arg_scene.instantiate()
-				setup_float_arg(new_arg, property)
-				arg_nodes.append(new_arg)
-			9:
-				#var axis_arg_property: Dictionary = property.duplicate(true)
-				property["name"] = arg_name + "\nx"
-				new_arg = float_arg_scene.instantiate()
-				setup_float_arg(new_arg, property)
-				arg_nodes.append(new_arg)
-				
-				property["name"] = arg_name + "\ny"
-				new_arg = float_arg_scene.instantiate()
-				setup_float_arg(new_arg, property)
-				arg_nodes.append(new_arg)
-				
-				property["name"] = arg_name + "\nz"
-				new_arg = float_arg_scene.instantiate()
-				setup_float_arg(new_arg, property)
-				arg_nodes.append(new_arg)
+			2:	# int
+				arg_nodes = setup_float_arg(int_arg_scene, property, 1)
+			3:	# float
+				arg_nodes = setup_float_arg(float_arg_scene, property, 1)
+			5:	# vec2
+				arg_nodes = setup_float_arg(float_arg_scene, property, 2)
+			6:	#ivec2
+				arg_nodes = setup_float_arg(int_arg_scene, property, 2)	
+			9:	#vec3
+				arg_nodes = setup_float_arg(float_arg_scene, property, 3)
+			10:	#ivec3
+				arg_nodes = setup_float_arg(int_arg_scene, property, 3)
+			12:	#vec4
+				arg_nodes = setup_float_arg(float_arg_scene, property, 4)
+			13:	#ivec4
+				arg_nodes = setup_float_arg(int_arg_scene, property, 4)
+			20:	#color -> vec3 or vec4
+				if property["hint"] == 21:
+					arg_nodes = setup_float_arg(float_arg_scene, property, 3)
+				else:
+					arg_nodes = setup_float_arg(float_arg_scene, property, 4)
+			
 			_:
 				continue
 		
@@ -89,9 +95,8 @@ func _ready() -> void:
 			"arg_nodes": arg_nodes
 		}
 		#new_arg.
-	print(args_metadata)
-	shader_material = ShaderMaterial.new()
-	shader_material.shader = shader
+	#print(args_metadata)
+
 	
 	
 	for modifier in args_container.get_children():
@@ -99,23 +104,34 @@ func _ready() -> void:
 			modifier.current_value_changed.connect(on_arg_value_changed)
 	
 	
-func setup_float_arg(scene: FloatArgModifier, property: Dictionary) -> void:
-	args_container.add_child(scene)
-	scene.arg_name = property["name"]
-	var hint_string: String = property["hint_string"]
-	var hint_string_array: PackedStringArray = hint_string.split(",")
-	if hint_string_array.size() == 3:
-		scene.hard_min_value = float(hint_string_array[0])
-		scene.min_value = float(hint_string_array[0])
-		
-		scene.hard_max_value = float(hint_string_array[1])
-		scene.max_value = float(hint_string_array[1])
-		
-		scene.snap_step_size = float(hint_string_array[2])
-		scene.current_value = property["hint"]
-	else:
-		print("Unintended: invalid hint format")
-		
+func setup_float_arg(base_scene: PackedScene, property: Dictionary, count: int) -> Array[FloatArgModifier]:
+	if shader_material.shader != shader:
+		push_error("Error: need to set the shader material first")
+	var arg_nodes: Array[FloatArgModifier] = []
+	for arg_index: int in range(count):
+		var arg_name: String = property["name"] + vector_prop_name_addon[arg_index] if count > 1 else property["name"]
+		var new_arg: FloatArgModifier = base_scene.instantiate()
+		args_container.add_child(new_arg)
+		new_arg.arg_name = arg_name
+		var hint_string: String = property["hint_string"]
+		var hint_string_array: PackedStringArray = hint_string.split(",")
+		if hint_string_array.size() >= 2:
+			new_arg.hard_min_value = float(hint_string_array[0])
+			new_arg.min_value = float(hint_string_array[0])
+			
+			new_arg.hard_max_value = float(hint_string_array[1])
+			new_arg.max_value = float(hint_string_array[1])
+		if hint_string_array.size() >= 3:
+			new_arg.snap_step_size = float(hint_string_array[2])
+		var default_value = shader_material.get_shader_parameter(property["name"])
+		new_arg.current_value = default_value[vector_prop_name[arg_index]] if count > 1 else default_value
+		Vector3()
+		#else:
+			#print("Unintended: invalid hint format")
+
+		arg_nodes.append(new_arg)
+	return arg_nodes
+			
 func on_arg_value_changed():
 		#print()
 	var new_shader_parameter: Dictionary = shader_parameters_current

@@ -4,7 +4,7 @@ extends Node2D
 @export var shader_setting_template_scene: PackedScene
 @export var visible_toggle_button_scene: PackedScene
 @export var default_shader: Shader
-
+@export var default_shader_material: ShaderMaterial
 
 #endregion
 
@@ -69,16 +69,20 @@ func _on_execute_progress_updated():
 
 func update_custom_shader():
 	#visual_texture_rect.material = custom_shader_component.custom_shader_material
-	update_new_shader_ui(custom_shader_component.custom_shader)
+	update_new_shader_ui(custom_shader_component.custom_shader, custom_shader_component.custom_shader_material)
 	visual_texture_rect.material = current_shader_setting_ui.shader_material
 
-func update_new_shader_ui(shader: Shader):
+func update_new_shader_ui(shader: Shader, shader_material: ShaderMaterial):
 	if current_shader_setting_ui: current_shader_setting_ui.queue_free()
 	if current_shader_setting_visible_button: current_shader_setting_visible_button.queue_free()
 	
 	var new_visible_button: VisibleToggleButton = visible_toggle_button_scene.instantiate()
 	var new_shader_setting_ui: ShaderSettingTemplate = shader_setting_template_scene.instantiate()
 	new_shader_setting_ui.shader = shader
+	new_shader_setting_ui.shader_material = shader_material
+	#var new_shader_material = ShaderMaterial.new()
+	#new_shader_material.shader = shader
+	#print(new_shader_material.get_shader_parameter('gamma'))
 	
 	new_visible_button.target_node = new_shader_setting_ui
 	new_visible_button.text = "Shader setting"
