@@ -4,8 +4,8 @@
 
 [resource]
 shader = ExtResource("1_d6bya")
-shader_parameter/blur_radius = 0
-shader_parameter/middle_mult = 5.0
-shader_parameter/gamma = 1.0
-shader_parameter/hsv_offset = Vector3(0, 0, 0)
 shader_parameter/contrast = 1.0
+shader_parameter/gamma = 1.0
+shader_parameter/blur_radius = 0
+shader_parameter/blur_middle_mult = 1.0
+shader_parameter/hsv_offset = Vector3(0, 0, 0)

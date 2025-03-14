@@ -65,23 +65,23 @@ func _ready() -> void:
 		var arg_nodes: Array[FloatArgModifier] = []
 		var arg_name: String = property["name"]
 		match property.type:
-			2:	# int
+			TYPE_INT:	# int
 				arg_nodes = setup_float_arg(int_arg_scene, property, 1)
-			3:	# float
+			TYPE_FLOAT:	# float
 				arg_nodes = setup_float_arg(float_arg_scene, property, 1)
-			5:	# vec2
+			TYPE_VECTOR2:	# vec2
 				arg_nodes = setup_float_arg(float_arg_scene, property, 2)
-			6:	#ivec2
+			TYPE_VECTOR2I:	#ivec2
 				arg_nodes = setup_float_arg(int_arg_scene, property, 2)	
-			9:	#vec3
+			TYPE_VECTOR3:	#vec3
 				arg_nodes = setup_float_arg(float_arg_scene, property, 3)
-			10:	#ivec3
+			TYPE_VECTOR3I:	#ivec3
 				arg_nodes = setup_float_arg(int_arg_scene, property, 3)
-			12:	#vec4
+			TYPE_VECTOR4:	#vec4
 				arg_nodes = setup_float_arg(float_arg_scene, property, 4)
-			13:	#ivec4
+			TYPE_VECTOR4I:	#ivec4
 				arg_nodes = setup_float_arg(int_arg_scene, property, 4)
-			20:	#color -> vec3 or vec4
+			TYPE_COLOR:	#color -> vec3 or vec4
 				if property["hint"] == 21:
 					arg_nodes = setup_float_arg(float_arg_scene, property, 3)
 				else:
@@ -149,35 +149,87 @@ var shader_parameters_range: Dictionary[String, Array]:
 		for arg_name in args_metadata:
 			var arg_metadata: Dictionary = args_metadata[arg_name]
 			match arg_metadata["type"]:
-				2:
-					arg_modifier = arg_metadata["arg_nodes"][0]
-					result[arg_name] = [arg_modifier.min_value, arg_modifier.max_value]
-				3:
-					arg_modifier = arg_metadata["arg_nodes"][0]
-					result[arg_name] = [arg_modifier.min_value, arg_modifier.max_value]
-				9:
-					var min_value: Vector3
-					var max_value: Vector3
-					arg_modifier = arg_metadata["arg_nodes"][0]
-					min_value.x = arg_modifier.min_value
-					max_value.x = arg_modifier.max_value
-					
-					arg_modifier = arg_metadata["arg_nodes"][1]
-					min_value.y = arg_modifier.min_value
-					max_value.y = arg_modifier.max_value
-					
-					arg_modifier = arg_metadata["arg_nodes"][2]
-					min_value.z = arg_modifier.min_value
-					max_value.z = arg_modifier.max_value
-					
-					result[arg_name] = [min_value, max_value]
+				TYPE_INT:
+					result[arg_name] = get_modifier_value_range(arg_modifier, arg_metadata, 1)
+					#arg_modifier = arg_metadata["arg_nodes"][0]
+					#result[arg_name] = [arg_modifier.min_value, arg_modifier.max_value]
+				TYPE_FLOAT:
+					result[arg_name] = get_modifier_value_range(arg_modifier, arg_metadata, 1)
+					#arg_modifier = arg_metadata["arg_nodes"][0]
+					#result[arg_name] = [arg_modifier.min_value, arg_modifier.max_value]
+				TYPE_VECTOR3:
+					result[arg_name] = get_modifier_value_range(arg_modifier, arg_metadata, 3)
+					#var min_value: Vector3
+					#var max_value: Vector3
+					#arg_modifier = arg_metadata["arg_nodes"][0]
+					#min_value.x = arg_modifier.min_value
+					#max_value.x = arg_modifier.max_value
+					#
+					#arg_modifier = arg_metadata["arg_nodes"][1]
+					#min_value.y = arg_modifier.min_value
+					#max_value.y = arg_modifier.max_value
+					#
+					#arg_modifier = arg_metadata["arg_nodes"][2]
+					#min_value.z = arg_modifier.min_value
+					#max_value.z = arg_modifier.max_value
+					#
+					#result[arg_name] = [min_value, max_value]
 				_:
 					continue
 		#for arg_modifier in args_container.get_children():
 			#if not (arg_modifier is FloatArgModifier): continue
 			#match arg_metadata[arg]
 		return result
-
+	
+func get_modifier_value_range(arg_modifier: FloatArgModifier, arg_metadata, count: int = 1) -> Array:
+	var range_min
+	var range_max
+	match count:
+		1:
+			pass
+		2:
+			range_min = Vector2.ZERO
+			range_max = Vector2.ZERO
+		3:
+			range_min = Vector3.ZERO
+			range_max = Vector3.ZERO
+		4:
+			range_min = Vector4.ZERO
+			range_max = Vector4.ZERO
+	#var arg_range: Array 
+	if count == 1:
+		arg_modifier = arg_metadata["arg_nodes"][0]
+		return [arg_modifier.min_value, arg_modifier.max_value]
+	else:
+		for arg_index in range(count):
+			arg_modifier = arg_metadata["arg_nodes"][arg_index]
+			range_min[vector_prop_name[arg_index]] = arg_modifier.min_value
+			range_max[vector_prop_name[arg_index]] = arg_modifier.max_value
+		
+		return [range_min, range_max]
+	
+func get_modifier_value_current(arg_modifier: FloatArgModifier, arg_metadata, count: int = 1):
+	var current_value
+	match count:
+		1:
+			pass
+		2:
+			current_value = Vector2.ZERO
+		3:
+			current_value = Vector3.ZERO
+		4:
+			current_value = Vector4.ZERO
+	#var arg_range: Array 
+	if count == 1:
+		arg_modifier = arg_metadata["arg_nodes"][0]
+		return arg_modifier.current_value
+	else:
+		for arg_index in range(count):
+			arg_modifier = arg_metadata["arg_nodes"][arg_index]
+			current_value[vector_prop_name[arg_index]] = arg_modifier.current_value
+	
+		return current_value
+	
 var shader_parameters_current: Dictionary:
 	get: 
 		var result: Dictionary = {}
@@ -185,13 +237,13 @@ var shader_parameters_current: Dictionary:
 		for arg_name in args_metadata:
 			var arg_metadata: Dictionary = args_metadata[arg_name]
 			match arg_metadata["type"]:
-				2:
+				TYPE_INT:
 					arg_modifier = arg_metadata["arg_nodes"][0]
 					result[arg_name] = arg_modifier.current_value
-				3:
+				TYPE_FLOAT:
 					arg_modifier = arg_metadata["arg_nodes"][0]
 					result[arg_name] = arg_modifier.current_value
-				9:
+				TYPE_VECTOR3:
 					var current_value: Vector3
 					arg_modifier = arg_metadata["arg_nodes"][0]
 					current_value.x = arg_modifier.current_value
