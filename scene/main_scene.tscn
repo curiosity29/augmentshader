@@ -75,22 +75,31 @@ material = ExtResource("5_86xya")
 metadata/_edit_lock_ = true
 
 [node name="ImagePickerButton" type="Button" parent="ResultView"]
-offset_left = 365.0
+offset_left = 248.0
 offset_top = 23.0
-offset_right = 588.0
+offset_right = 471.0
 offset_bottom = 121.0
 theme_override_font_sizes/font_size = 32
 text = "Pick from
 file system"
 
 [node name="LoadDefaultImages" type="Button" parent="ResultView"]
-offset_left = 68.0
+offset_left = 11.0
 offset_top = 19.0
-offset_right = 293.0
+offset_right = 236.0
 offset_bottom = 122.0
 theme_override_font_sizes/font_size = 32
-text = "load defaults
-images"
+text = "load default
+image"
+
+[node name="SaveCurrentImagesButton" type="Button" parent="ResultView"]
+offset_left = 484.0
+offset_top = 19.0
+offset_right = 709.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 32
+text = "save current
+image"
 
 [node name="StartButton" type="Button" parent="ResultView"]
 offset_left = 63.0
@@ -160,12 +169,12 @@ horizontal_alignment = 1
 
 [node name="CustomShaderToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
 layout_mode = 2
-text = "Custom Shader (currently only for visual)"
+text = "Shader Code"
 target_node = NodePath("../CustomShaderComponent")
 
 [node name="CustomShaderComponent" parent="ScrollContainer/ArgsComponentContainer" instance=ExtResource("7_qvu5t")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 800)
 layout_mode = 2
 
 [node name="ConsoleToggle" parent="ScrollContainer/ArgsComponentContainer" node_paths=PackedStringArray("target_node") instance=ExtResource("5_hrphr")]
@@ -199,4 +208,5 @@ layout_mode = 2
 
 [connection signal="pressed" from="ResultView/ImagePickerButton" to="." method="_on_image_picker_button_pressed"]
 [connection signal="pressed" from="ResultView/LoadDefaultImages" to="." method="_on_load_default_images_pressed"]
+[connection signal="pressed" from="ResultView/SaveCurrentImagesButton" to="." method="_on_save_current_images_button_pressed"]
 [connection signal="pressed" from="ResultView/StartButton" to="." method="_on_start_button_pressed"]

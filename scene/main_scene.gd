@@ -100,7 +100,8 @@ func update_new_shader_ui(shader: Shader, shader_material: ShaderMaterial):
 #endregion
 
 
-#region UI
+#region UI (becoming dirty)
+#region filesystem
 func open_folder_picker(callback: Callable = func(): pass):
 	file_dialog.dir_selected.connect(callback, CONNECT_ONE_SHOT)
 	file_dialog.close_requested.connect(func(): file_dialog.disconnect("dir_selected", callback))
@@ -112,7 +113,15 @@ func open_file_picker(callback: Callable = func(): pass):
 	file_dialog.close_requested.connect(func(): file_dialog.disconnect("file_selected", callback))
 	file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialog.popup_centered_ratio()
-
+	
+func save_file_picker(callback: Callable = func(): pass):
+	#file_dialog.files_dropped
+	
+	file_dialog.file_selected.connect(callback, CONNECT_ONE_SHOT)
+	file_dialog.close_requested.connect(func(): file_dialog.disconnect("file_selected", callback))
+	file_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+	file_dialog.popup_centered_ratio()
+#endregion
 #func _on_folder_selected(dir_name: String):
 	#print(dir_name)
 
@@ -121,8 +130,16 @@ func _on_image_picker_button_pressed() -> void:
 func _on_load_default_images_pressed() -> void:
 	visual_texture_rect.texture = default_texture
 
-
-
+func _on_save_current_images_button_pressed() -> void:
+	save_file_picker(save_visual_image)
+func save_visual_image(output_image_path: String):
+	await RenderingServer.frame_post_draw
+	var image: Image = visual_sub_viewport.get_texture().get_image()
+	#save_image(image, output_file_path)
+	var error_code
+	if output_image_path.ends_with(".png") or output_image_path.ends_with(".PNG"):
+		error_code = image.save_png(output_image_path)
+	return error_code
 var permitted_image_extension = ["png", "jpg"]
 func load_and_change_visual_image(image_path: String):
 	var valid_extension = false

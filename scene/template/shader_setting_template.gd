@@ -92,6 +92,7 @@ func _ready() -> void:
 		
 		args_metadata[arg_name] = {
 			"type": property["type"],
+			"hint": property["hint"],
 			"arg_nodes": arg_nodes
 		}
 		#new_arg.
@@ -145,35 +146,31 @@ func on_arg_value_changed():
 var shader_parameters_range: Dictionary[String, Array]:
 	get:
 		var result: Dictionary[String, Array] = {}
-		var arg_modifier: FloatArgModifier
+		
 		for arg_name in args_metadata:
 			var arg_metadata: Dictionary = args_metadata[arg_name]
 			match arg_metadata["type"]:
 				TYPE_INT:
-					result[arg_name] = get_modifier_value_range(arg_modifier, arg_metadata, 1)
-					#arg_modifier = arg_metadata["arg_nodes"][0]
-					#result[arg_name] = [arg_modifier.min_value, arg_modifier.max_value]
+					result[arg_name] = get_modifier_value_range(arg_metadata, 1)
 				TYPE_FLOAT:
-					result[arg_name] = get_modifier_value_range(arg_modifier, arg_metadata, 1)
-					#arg_modifier = arg_metadata["arg_nodes"][0]
-					#result[arg_name] = [arg_modifier.min_value, arg_modifier.max_value]
+					result[arg_name] = get_modifier_value_range(arg_metadata, 1)
+				TYPE_VECTOR2:
+					result[arg_name] = get_modifier_value_range(arg_metadata, 2)
+				TYPE_VECTOR2I:
+					result[arg_name] = get_modifier_value_range(arg_metadata, 2)
 				TYPE_VECTOR3:
-					result[arg_name] = get_modifier_value_range(arg_modifier, arg_metadata, 3)
-					#var min_value: Vector3
-					#var max_value: Vector3
-					#arg_modifier = arg_metadata["arg_nodes"][0]
-					#min_value.x = arg_modifier.min_value
-					#max_value.x = arg_modifier.max_value
-					#
-					#arg_modifier = arg_metadata["arg_nodes"][1]
-					#min_value.y = arg_modifier.min_value
-					#max_value.y = arg_modifier.max_value
-					#
-					#arg_modifier = arg_metadata["arg_nodes"][2]
-					#min_value.z = arg_modifier.min_value
-					#max_value.z = arg_modifier.max_value
-					#
-					#result[arg_name] = [min_value, max_value]
+					result[arg_name] = get_modifier_value_range(arg_metadata, 3)
+				TYPE_VECTOR3I:
+					result[arg_name] = get_modifier_value_range(arg_metadata, 3)
+				TYPE_VECTOR4:
+					result[arg_name] = get_modifier_value_range(arg_metadata, 4)
+				TYPE_VECTOR4I:
+					result[arg_name] = get_modifier_value_range(arg_metadata, 4)
+				TYPE_COLOR:	#color -> vec3 or vec4
+					if arg_metadata["hint"] == 21:
+						result[arg_name] = get_modifier_value_range(arg_metadata, 3)
+					else:
+						result[arg_name] = get_modifier_value_range(arg_metadata, 4)
 				_:
 					continue
 		#for arg_modifier in args_container.get_children():
@@ -181,9 +178,10 @@ var shader_parameters_range: Dictionary[String, Array]:
 			#match arg_metadata[arg]
 		return result
 	
-func get_modifier_value_range(arg_modifier: FloatArgModifier, arg_metadata, count: int = 1) -> Array:
+func get_modifier_value_range(arg_metadata, count: int = 1) -> Array:
 	var range_min
 	var range_max
+	var arg_modifier: FloatArgModifier
 	match count:
 		1:
 			pass
@@ -208,8 +206,9 @@ func get_modifier_value_range(arg_modifier: FloatArgModifier, arg_metadata, coun
 		
 		return [range_min, range_max]
 	
-func get_modifier_value_current(arg_modifier: FloatArgModifier, arg_metadata, count: int = 1):
+func get_modifier_value_current(arg_metadata, count: int = 1):
 	var current_value
+	var arg_modifier: FloatArgModifier
 	match count:
 		1:
 			pass
@@ -233,28 +232,33 @@ func get_modifier_value_current(arg_modifier: FloatArgModifier, arg_metadata, co
 var shader_parameters_current: Dictionary:
 	get: 
 		var result: Dictionary = {}
-		var arg_modifier: FloatArgModifier
+		#var arg_modifier: FloatArgModifier
 		for arg_name in args_metadata:
 			var arg_metadata: Dictionary = args_metadata[arg_name]
 			match arg_metadata["type"]:
 				TYPE_INT:
-					arg_modifier = arg_metadata["arg_nodes"][0]
-					result[arg_name] = arg_modifier.current_value
+					result[arg_name] = get_modifier_value_current(arg_metadata, 1)
+					#arg_modifier = arg_metadata["arg_nodes"][0]
+					#result[arg_name] = arg_modifier.current_value
 				TYPE_FLOAT:
-					arg_modifier = arg_metadata["arg_nodes"][0]
-					result[arg_name] = arg_modifier.current_value
+					result[arg_name] = get_modifier_value_current(arg_metadata, 1)
+				TYPE_VECTOR2:
+					result[arg_name] = get_modifier_value_current(arg_metadata, 2)
+				TYPE_VECTOR2I:
+					result[arg_name] = get_modifier_value_current(arg_metadata, 2)
 				TYPE_VECTOR3:
-					var current_value: Vector3
-					arg_modifier = arg_metadata["arg_nodes"][0]
-					current_value.x = arg_modifier.current_value
-					
-					arg_modifier = arg_metadata["arg_nodes"][1]
-					current_value.y = arg_modifier.current_value
-					
-					arg_modifier = arg_metadata["arg_nodes"][2]
-					current_value.z = arg_modifier.current_value
-					
-					result[arg_name] = current_value
+					result[arg_name] = get_modifier_value_current(arg_metadata, 3)
+				TYPE_VECTOR3I:
+					result[arg_name] = get_modifier_value_current(arg_metadata, 3)
+				TYPE_VECTOR4:
+					result[arg_name] = get_modifier_value_current(arg_metadata, 4)
+				TYPE_VECTOR4I:
+					result[arg_name] = get_modifier_value_current(arg_metadata, 4)
+				TYPE_COLOR:	#color -> vec3 or vec4
+					if arg_metadata["hint"] == 21:
+						result[arg_name] = get_modifier_value_current(arg_metadata, 3)
+					else:
+						result[arg_name] = get_modifier_value_current(arg_metadata, 4)
 				_:
 					continue
 		#for arg_modifier in args_container.get_children():

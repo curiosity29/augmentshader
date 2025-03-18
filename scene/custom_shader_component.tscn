@@ -1,12 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://bets28ji673vm"]
+[gd_scene load_steps=3 format=3 uid="uid://bets28ji673vm"]
 
 [ext_resource type="Script" uid="uid://bfhks0lwhlexi" path="res://scene/custom_shader_component.gd" id="1_jhl1t"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_jhl1t"]
+number_color = Color(0, 0.823529, 0, 1)
+symbol_color = Color(0.788235, 0, 0, 1)
+function_color = Color(5.77569e-07, 3.08037e-06, 0.971472, 1)
+member_variable_color = Color(1, 1, 1, 1)
+keyword_colors = {
+"abs": Color(1, 0.302, 0.235, 1),
+"break": Color(1, 0.302, 0.235, 1),
+"continue": Color(1, 0.302, 0.235, 1),
+"cos": Color(1, 0.302, 0.235, 1),
+"discard": Color(1, 0.302, 0.235, 1),
+"for": Color(1, 0.302, 0.235, 1),
+"fract": Color(1, 0.302, 0.235, 1),
+"length": Color(1, 0.302, 0.235, 1),
+"mat2": Color(1, 0.302, 0.235, 1),
+"mat3": Color(1, 0.302, 0.235, 1),
+"mat4": Color(1, 0.302, 0.235, 1),
+"mix": Color(1, 0.302, 0.235, 1),
+"mod": Color(1, 0.302, 0.235, 1),
+"normalize": Color(1, 0.302, 0.235, 1),
+"return": Color(1, 0.302, 0.235, 1),
+"sampler2D": Color(1, 0.302, 0.235, 1),
+"sin": Color(1, 0.302, 0.235, 1),
+"tan": Color(1, 0.302, 0.235, 1),
+"texture": Color(1, 0.302, 0.235, 1),
+"uniform": Color(1, 0.302, 0.235, 1),
+"vec2": Color(1, 0.302, 0.235, 1),
+"vec3": Color(1, 0.302, 0.235, 1),
+"vec4": Color(1, 0.302, 0.235, 1),
+"void": Color(1, 0.302, 0.235, 1),
+"while": Color(1, 0.302, 0.235, 1)
+}
 
 [node name="CustomShaderComponent" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 866.0
-offset_bottom = 250.0
+offset_bottom = 800.0
 script = ExtResource("1_jhl1t")
 
 [node name="CustomShaderContainer" type="VBoxContainer" parent="."]
@@ -34,6 +67,17 @@ text = "shader_type canvas_item;
         void fragment() {
             COLOR = vec4(UV, 0.5, 1.0); // Simple gradient shader
         }"
+minimap_draw = true
+caret_blink = true
+syntax_highlighter = SubResource("CodeHighlighter_jhl1t")
+draw_tabs = true
+symbol_lookup_on_click = true
+line_folding = true
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
 
 [node name="ShaderUpdateButton" type="Button" parent="CustomShaderContainer"]
 layout_mode = 2
