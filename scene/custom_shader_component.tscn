@@ -75,12 +75,23 @@ symbol_lookup_on_click = true
 line_folding = true
 gutters_draw_line_numbers = true
 gutters_draw_fold_gutter = true
+delimiter_comments = Array[String](["//"])
 indent_automatic = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 
-[node name="ShaderUpdateButton" type="Button" parent="CustomShaderContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CustomShaderContainer"]
 layout_mode = 2
+
+[node name="ShaderUpdateButton" type="Button" parent="CustomShaderContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Update"
 
-[connection signal="pressed" from="CustomShaderContainer/ShaderUpdateButton" to="." method="_on_shader_update_button_pressed"]
+[node name="LoadPremadeButton" type="Button" parent="CustomShaderContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load premade"
+
+[connection signal="pressed" from="CustomShaderContainer/HBoxContainer/ShaderUpdateButton" to="." method="_on_shader_update_button_pressed"]
+[connection signal="pressed" from="CustomShaderContainer/HBoxContainer/LoadPremadeButton" to="." method="_on_load_premade_button_pressed"]

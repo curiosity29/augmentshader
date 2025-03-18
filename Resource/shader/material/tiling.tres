@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c7dtb6i0b8q4w"]
+
+[ext_resource type="Shader" uid="uid://jkifovu0njdw" path="res://Resource/shader/script/tiling.gdshader" id="1_hdk3b"]
+
+[resource]
+shader = ExtResource("1_hdk3b")
+shader_parameter/tiling = Vector2(3, 1)
+shader_parameter/uv_offset = 0.0

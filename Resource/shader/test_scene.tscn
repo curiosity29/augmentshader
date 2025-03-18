@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnttagi5p4wi8"]
+
+[ext_resource type="Texture2D" uid="uid://de3vr60ohmf2o" path="res://icon.svg" id="1_ncg0c"]
+[ext_resource type="Material" uid="uid://c7dtb6i0b8q4w" path="res://Resource/shader/material/tiling.tres" id="1_petbo"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture_repeat = 2
+material = ExtResource("1_petbo")
+texture = ExtResource("1_ncg0c")

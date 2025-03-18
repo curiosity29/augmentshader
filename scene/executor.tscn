@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ssps60ynp5b5"]
 
 [ext_resource type="Script" uid="uid://pl6w71e6j1t2" path="res://scene/executor.gd" id="1_3boq5"]
-[ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://shader/material/augment.tres" id="2_jltgv"]
+[ext_resource type="Material" uid="uid://3peta0sgvg14" path="res://Resource/shader/material/augment.tres" id="2_jltgv"]
 
 [node name="Executor" type="Node2D"]
 script = ExtResource("1_3boq5")

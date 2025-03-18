@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShaderResource" load_steps=4 format=3 uid="uid://dwbhmll0ueiqo"]
+
+[ext_resource type="Texture2D" uid="uid://de3vr60ohmf2o" path="res://icon.svg" id="1_fatvp"]
+[ext_resource type="Script" uid="uid://5m1q0rggihdu" path="res://script/resource/shader_resource.gd" id="1_v0ypb"]
+[ext_resource type="Shader" uid="uid://jw0vlhrxo20i" path="res://Resource/shader/script/augment.gdshader" id="3_w6w8s"]
+
+[resource]
+script = ExtResource("1_v0ypb")
+id = "ml_augment"
+shader = ExtResource("3_w6w8s")
+display_name = "ml augment"
+icon = ExtResource("1_fatvp")
+metadata/_custom_type_script = "uid://5m1q0rggihdu"

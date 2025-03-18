@@ -8,6 +8,7 @@ signal shader_updated
   #'texture', 'discard', 'return', 'for', 'while', 'break', 'continue',
   #'mix', 'fract', 'mod', 'abs', 'sin', 'cos', 'tan', 'normalize', 'length']
 ##'if', 'else',
+#@export var test: PackedStringArray = ["//"]
 #
 #@export var keywords_colors: Dictionary = {
 	#'void': Color(1.0, 0.302, 0.235), 'vec2': Color(1.0, 0.302, 0.235),
@@ -58,7 +59,12 @@ func update_custom_shader() -> void:
 
 func _on_shader_update_button_pressed() -> void:
 	update_custom_shader()
-	pass
+
+func _on_load_premade_button_pressed() -> void:
+	
+	
+	update_custom_shader()
+	pass # Replace with function body.
 
 
 #func _ready() -> void:
