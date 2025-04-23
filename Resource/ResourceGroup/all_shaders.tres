@@ -7,5 +7,5 @@ script = ExtResource("1_ssxxe")
 base_folder = "res://Resource/shader/shader_resource"
 includes = Array[String](["**.tres"])
 excludes = Array[String]([])
-paths = Array[String]([])
+paths = Array[String](["res://Resource/shader/shader_resource/ml_augment.tres"])
 metadata/_custom_type_script = "uid://dwa0sfoyabuxv"

@@ -32,6 +32,8 @@ config/icon="res://icon.svg"
 
 Utils="*res://Global/Utils.gd"
 Database="*res://Global/Database.gd"
+Setting="*res://Global/Setting.gd"
+Helper="*res://Global/Helper.gd"
 
 [display]
 
@@ -41,6 +43,10 @@ window/size/window_width_override=1600
 window/size/window_height_override=900
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
+
+[editor]
+
+run/main_run_args="--server -- config_path=\"\""
 
 [editor_plugins]
 

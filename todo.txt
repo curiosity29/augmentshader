@@ -1,0 +1,10 @@
++ add args for headless run
++ add setup script to add action option context for folder (right click on folder + show more options + augment folder)
++ add customizable input texture for shader
++ add customizable noise texture with seed for shader
+
+
+
+
+
+

@@ -12,8 +12,3 @@ func _ready() -> void:
 		shader_map[shader_resource.id] = shader_resource
 	
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

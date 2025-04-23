@@ -31,8 +31,21 @@ var color: Color
 
 @onready var shader_code_edit: CodeEdit = %ShaderCodeEdit
 
-var custom_shader_material: ShaderMaterial
-var custom_shader: Shader
+@export var default_shader: Shader
+@export var default_shader_material: ShaderMaterial
+@onready var default_shader_text: String = shader_code_edit.text
+
+var custom_shader_material: ShaderMaterial# = default_shader_material
+var custom_shader: Shader# = default_shader
+
+func _ready() -> void:
+	set_shader_to_default()
+
+func set_shader_to_default() -> void:
+	
+	shader_code_edit.text = default_shader.code
+	update_custom_shader()
+
 func update_custom_shader() -> void:
 	## remove old material
 	#if custom_shader_material: custom_shader_material.free()
@@ -61,11 +74,13 @@ func _on_shader_update_button_pressed() -> void:
 	update_custom_shader()
 
 func _on_load_premade_button_pressed() -> void:
-	
-	
-	update_custom_shader()
-	pass # Replace with function body.
+	set_shader_to_default()
 
+func _on_save_as_context_button_pressed() -> void:
+	print("saving shader as context to ", Setting.context_shader_path)
+	## save current shader to context shader file
+	ResourceSaver.save(custom_shader, Setting.context_shader_path)
+	
 
 #func _ready() -> void:
 	#shader_code_edit.text = default_shader.code

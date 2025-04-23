@@ -2,16 +2,17 @@
 extends EditorScript
 #extends Node
 
-func extract_shader_parameters(shader_code: String) -> Dictionary:
+func extract_shader_parameters(input_shader_code: String) -> Dictionary:
 	var parameters = {}
-	var lines = shader_code.strip_edges().split("\n")
+	var lines = input_shader_code.strip_edges().split("\n")
 
 	for line in lines:
 		line = line.strip_edges()
-		RegEx
+		# RegEx
 		if line.begins_with("uniform"):
-			var pattern = "^uniform\\s+(\\w+)\\s+(\\w+)(?:\\s*:\\s*(\\w+)(?:\\(([^)]*)\\))?)?(?:\\s*=\\s*([^;]+))?;"
-			var match = RegEx.new()
+			pass
+			#var pattern = "^uniform\\s+(\\w+)\\s+(\\w+)(?:\\s*:\\s*(\\w+)(?:\\(([^)]*)\\))?)?(?:\\s*=\\s*([^;]+))?;"
+			#var match = RegEx.new()
 			#if match.compile(pattern).search(line):
 				#var result = match.search(line)
 #

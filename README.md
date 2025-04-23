@@ -20,3 +20,20 @@ images from https://aekashics.itch.io/aekashics-librarium-librarium-static-batch
 <div align="center">
 <img width="600" alt="sample_output_folder" src="https://github.com/user-attachments/assets/3e148661-e705-427b-a217-465854a8a453" />
 </div>
+
+## Temporary auto-generated message:
+### Windows Context Menu Integration:
+To add Augment Shader to your Windows right-click context menu for image files:
+
+1. Place the AugmentShader.exe in the directory you want to keep it
+2. Run `apply_registry.bat` with administrator privileges
+3. Now you can right-click on any supported image file (.jpg, .jpeg, .png, .bmp, .tif, .tiff) and select "Process with Augment Shader"
+
+To remove the context menu integration:
+1. Run `remove_registry.bat` with administrator privileges
+
+### Supported file formats:
+- JPG/JPEG
+- PNG
+- BMP
+- TIF/TIFF

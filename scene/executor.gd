@@ -175,7 +175,9 @@ func augment_folder(input_folder_path: String, output_folder_path: String):
 	
 	progress_label.text = progress_label_format % [output_folder_path, current_folder_processed_count, current_folder_total_count]
 	done_augment_folder.emit()
-	
+
+
+
 signal done_augment_image
 func augment_image(output_folder_path: String, image_name: String = ""):
 	if not output_folder_path.ends_with("/"):
@@ -249,3 +251,26 @@ func get_image_files_in_folder(folder_path: String) -> Array:
 	dir.list_dir_end()
 	
 	return files
+
+
+#region external usage
+
+func load_and_augment(image_path: String, output_image_path: String) -> void:
+	## set current image using image_path
+	var texture: Texture =  get_external_texture(image_path)
+	var image_name: String = output_image_path.split("/")[-1]
+	var output_image_folder_path: String = output_image_path.erase(output_image_path.length() - image_name.length() - 1, image_name.length() + 1)
+	
+	#sprite_2d.texture = texture#load(image_path)
+	viewport_sprite_2d.texture = texture
+	#print(texture.get_height())
+	#print()
+	#RenderingServer.frame_pre_draw.connect(update_viewport_size, CONNECT_ONE_SHOT)
+	RenderingServer.frame_pre_draw.connect(update_viewport_size, CONNECT_ONE_SHOT)
+	
+	
+	augment_image(output_image_folder_path, image_name)
+	
+
+
+#endregion
